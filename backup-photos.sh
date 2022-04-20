@@ -26,7 +26,9 @@ fi
 echo "Backing up files from: $SOURCE";
 echo "To: $TARGET";
 
-
-TODAY=$(date +'%m/%Y')
+TARGET=$(echo $TARGET | sed 's:/*$::')
+SOURCE=$(echo $SOURCE | sed 's:/*$::')
+TODAY=$(date +'%m-%Y')
+mkdir -p $TARGET/$TODAY
 rsync -ar --no-relative --progress --files-from=<(find $SOURCE -newer $TARGET/last_sync -type f -exec basename {} \;) $SOURCE $TARGET/$TODAY
 touch $TARGET/last_sync

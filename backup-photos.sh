@@ -12,13 +12,17 @@ exit_abnormal() {                         # Function: Exit with error.
   exit 1
 }
 
-while getopts u:a:f: flag
-do
+while getopts ":s:t:" flag; do
     case "${flag}" in
         t) TARGET=${OPTARG};;
         s) SOURCE=${OPTARG};;
+	:) exit_abnormal;;
+	*) exit_abnormal;;
     esac
 done
+if [ -z "${SOURCE}" ] || [ -z "${TARGET}" ]; then
+    exit_abnormal
+fi
 echo "Backing up files from: $SOURCE";
 echo "To: $TARGET";
 

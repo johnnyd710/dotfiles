@@ -30,5 +30,6 @@ TARGET=$(echo $TARGET | sed 's:/*$::')
 SOURCE=$(echo $SOURCE | sed 's:/*$::')
 TODAY=$(date +'%m-%Y')
 mkdir -p $TARGET/$TODAY
-rsync -ar --no-relative --progress --files-from=<(find $SOURCE -newer $TARGET/last_sync -type f -exec realpath --relative-to=$SOURCE '{}' \;) $SOURCE $TARGET/$TODAY
+NEWEST=$(ls -tr $TARGET | tail -1) # gets the newest file in the folder
+rsync -ar --no-relative --progress --files-from=<(find $SOURCE -newer $NEWEST -type f -exec realpath --relative-to=$SOURCE '{}' \;) $SOURCE $TARGET/$TODAY
 touch $TARGET/last_sync

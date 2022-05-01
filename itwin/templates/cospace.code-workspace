@@ -1,0 +1,67 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "name": "web-viewer-app",
+      "path": "repos/viewer/packages/apps/web-viewer-test"
+    },
+    {
+      "name": "web-viewer-react",
+      "path": "repos/viewer/packages/modules/web-viewer-react"
+    },
+    {
+      "name": "test-local-extension",
+      "path": "repos/viewer/packages/modules/test-local-extension"
+    },
+    // {
+    //   "name": "core-extension gen api",
+    //   "path": "repos/itwinjs-core.runtime/core/extension"
+    // },
+    {
+      "name": "core-frontend",
+      "path": "repos/itwinjs-core/core/frontend"
+    },
+    // {
+    //   "name": "core-common",
+    //   "path": "repos/itwinjs-core.runtime/core/common"
+    // },
+    // {
+    //   "name": "core-geometry",
+    //   "path": "../itwinjs-core.master/core/geometry"
+    // },
+  ],
+  "settings": {
+    "search.exclude": {
+      "**/node_modules": true,
+      "repos": false
+    },
+    "files.exclude": {
+      "**/lib": true,
+      "**/node_modules": true,
+      "../": true,
+      "repos": true
+    },
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#1f6fd0",
+      "activityBar.activeBorder": "#ee90bb",
+      "activityBar.background": "#1f6fd0",
+      "activityBar.foreground": "#e7e7e7",
+      "activityBar.inactiveForeground": "#e7e7e799",
+      "activityBarBadge.background": "#ee90bb",
+      "activityBarBadge.foreground": "#15202b",
+      "sash.hoverBorder": "#1f6fd0",
+      "statusBar.background": "#1857a4",
+      "statusBar.foreground": "#e7e7e7",
+      "statusBarItem.hoverBackground": "#1f6fd0",
+      "statusBarItem.remoteBackground": "#1857a4",
+      "statusBarItem.remoteForeground": "#e7e7e7",
+      "titleBar.activeBackground": "#1857a4",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.inactiveBackground": "#1857a499",
+      "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#1857a4"
+  }
+}

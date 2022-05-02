@@ -26,10 +26,28 @@ fi
 echo "Backing up files from: $SOURCE";
 echo "To: $TARGET";
 
+if [ ! -f $TARGET/.newest ]
+then
+  echo "Fetching latest file..."
+  # get newest file in TARGET directory
+  NEWEST=$(find $TARGET -type f -not -path '*/.*' -printf '%TY %Tm%Td%TH%TM %p\n' |sort -nr |head -n 1 | cut -d' ' -f2)
+  # create a new empty file with the same time as the newest
+  touch -d "$NEWEST" $TARGET/.newest
+  echo "Latest file cached."
+fi  
+
+
 TARGET=$(echo $TARGET | sed 's:/*$::')
 SOURCE=$(echo $SOURCE | sed 's:/*$::')
 TODAY=$(date +'%m-%Y')
 mkdir -p $TARGET/$TODAY
-NEWEST=$(find $TARGET -type f -not -path '*/.*' -printf '%TY-%Tm-%Td %TH:%TM %p\n' |sort -nr |head -n 1 | cut -d' ' -f3) # gets the newest file in the folder
-rsync -ar --no-relative --progress --files-from=<(find $SOURCE -newer $NEWEST -type f -exec realpath --relative-to=$SOURCE '{}' \;) $SOURCE $TARGET/$TODAY
+rsync -ar --no-relative --progress --files-from=<(find $SOURCE -newer $TARGET/.newest -type f -exec realpath --relative-to=$SOURCE '{}' \;) $SOURCE $TARGET/$TODAY
 touch $TARGET/.last_sync
+
+if [ ! -z "$(ls -A $TARGET/$TODAY)" ]; then
+  # get newest file in TARGET directory
+  NEWEST_TODAY_FILE=$(find $TARGET/$TODAY -type f -not -path '*/.*' -printf '%TY %Tm%Td%TH%TM %p\n' |sort -nr |head -n 1 | cut -d' ' -f3)
+  NEWEST_TODAY_DATE=$(find $TARGET/$TODAY -type f -not -path '*/.*' -printf '%TY %Tm%Td%TH%TM %p\n' |sort -nr |head -n 1 | cut -d' ' -f2)
+  [[ $NEWEST_TODAY_FILE -nt $TARGET/.newest ]] && touch -d "$NEWEST_TODAY_DATE" $TARGET/.newest
+fi
+

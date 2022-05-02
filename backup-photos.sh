@@ -32,7 +32,8 @@ then
   # get newest file in TARGET directory
   NEWEST=$(find $TARGET -type f -not -path '*/.*' -printf '%TY %Tm%Td%TH%TM %p\n' |sort -nr |head -n 1 | cut -d' ' -f2)
   # create a new empty file with the same time as the newest
-  touch -d "$NEWEST" $TARGET/.newest
+  echo "creating .newest file with timestamp $NEWEST"
+  touch -t $NEWEST $TARGET/.newest
   echo "Latest file cached."
 fi  
 
@@ -48,6 +49,7 @@ if [ ! -z "$(ls -A $TARGET/$TODAY)" ]; then
   # get newest file in TARGET directory
   NEWEST_TODAY_FILE=$(find $TARGET/$TODAY -type f -not -path '*/.*' -printf '%TY %Tm%Td%TH%TM %p\n' |sort -nr |head -n 1 | cut -d' ' -f3)
   NEWEST_TODAY_DATE=$(find $TARGET/$TODAY -type f -not -path '*/.*' -printf '%TY %Tm%Td%TH%TM %p\n' |sort -nr |head -n 1 | cut -d' ' -f2)
-  [[ $NEWEST_TODAY_FILE -nt $TARGET/.newest ]] && touch -d "$NEWEST_TODAY_DATE" $TARGET/.newest
+  echo "replacing .newest file with timestamp $NEWEST_TODAY_DATE"
+  [[ $NEWEST_TODAY_FILE -nt $TARGET/.newest ]] && touch -t "$NEWEST_TODAY_DATE" $TARGET/.newest
 fi
 

@@ -10,7 +10,7 @@
 # REQUIRES GITHUB CLI TO BE INSTALLED AND AUTHORIZED UNDER A GITHUB ACCOUNT
 # https://github.com/cli/cli
 
-param ($dir, $viewerbranch='next', $corebranch='master', $vcr=$null)
+param ($dir, $viewerbranch, $corebranch, $vcr=$null)
 if ($dir -eq $null) {
   $dir = read-host -Prompt "Please enter a name for the new cospace directory." 
 }

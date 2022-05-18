@@ -8,3 +8,8 @@ winget install --id Microsoft.VisualStudioCode
 # git config
 git config --global user.name "johnnyd710"
 git config --global user.email "19596966+johnnyd710@users.noreply.github.com"
+# nodejs install
+Invoke-WebRequest get.scoop.sh | Invoke-Expression
+scoop install fnm
+# $profile copy
+cp "$PSScriptRoot\Microsoft.PowerShell_profile.ps1" $profile

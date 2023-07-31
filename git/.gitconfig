@@ -1,0 +1,13 @@
+[core]
+	editor = vscode --wait
+	autocrlf = false
+	excludesFile = C:\\Users\\John.DiMatteo\\.gitignore
+[user]
+	email = 19596966+johnnyd710@users.noreply.github.com
+	name = John DiMatteo
+[color]
+	ui = auto
+[diff]
+	tool = vscode
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE

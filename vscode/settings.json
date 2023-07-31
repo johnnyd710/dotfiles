@@ -1,0 +1,74 @@
+{
+  "workbench.colorTheme": "GitHub Dark",
+  "editor.minimap.enabled": false,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.fontFamily": "RobotoMono Nerd Font, Source Code Pro",
+  "cSpell.userWords": [
+    "cospace",
+    "ecschema",
+    "frontstage",
+    "frontstages",
+    "imodel",
+    "Itwin",
+    "itwinjs",
+    "lage",
+    "Microstation",
+    "pnpm",
+    "viewports"
+  ],
+  "diffEditor.codeLens": true,
+  "editor.tabSize": 2,
+  "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "typescript.preferences.quoteStyle": "double",
+  "workbench.iconTheme": "vscode-icons",
+  "files.associations": {
+    "*.txt": "markdown"
+  },
+  "editor.fontSize": 16,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "importSorter.importStringConfiguration.quoteMark": "double",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "explorer.confirmDelete": false,
+  "files.eol": "\n",
+  "workbench.startupEditor": "none",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "npm.packageManager": "pnpm",
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false,
+    "yaml": false,
+    "json": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "editor.formatOnSaveMode": "modifications",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.autoClosingBrackets": "languageDefined",
+  "workbench.sideBar.location": "right",
+  "editor.lineHeight": 1.5,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "prettier.configPath": ".prettierrc",
+  "extensions.ignoreRecommendations": true,
+  "githubIssues.assignWhenWorking": false,
+  "githubIssues.ignoreUserCompletionTrigger": [
+    "python",
+    "javascript",
+    "typescript",
+    "txt",
+    "markdown"
+  ],
+  "githubIssues.userCompletions.enabled": false,
+}

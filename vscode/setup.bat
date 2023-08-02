@@ -1,6 +1,6 @@
 @echo off
 
-winget install -e --id Microsoft.VisualStudioCode
+@REM winget install -e --id Microsoft.VisualStudioCode
 mklink /H "%APPDATA%\Roaming\Code\User\settings.json" ".\settings.json"
 
 code --install-extension bierner.markdown-preview-github-styles

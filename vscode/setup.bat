@@ -1,23 +1,23 @@
 @echo off
 
 @REM winget install -e --id Microsoft.VisualStudioCode
-mklink /H "%APPDATA%\Roaming\Code\User\settings.json" ".\settings.json"
+mklink /H "%APPDATA%\Code\User\settings.json" ".\settings.json"
 
-code --install-extension bierner.markdown-preview-github-styles
-code --install-extension christian-kohler.path-intellisense
-code --install-extension DavidAnson.vscode-markdownlint
-code --install-extension dbaeumer.vscode-eslint
-code --install-extension EditorConfig.EditorConfig
-code --install-extension esbenp.prettier-vscode
-code --install-extension euskadi31.json-pretty-printer
-code --install-extension GitHub.copilot
-code --install-extension GitHub.github-vscode-theme
-code --install-extension GitHub.vscode-pull-request-github
-code --install-extension jsynowiec.vscode-insertdatestring
-code --install-extension mechatroner.rainbow-csv
-code --install-extension mike-co.import-sorter
-code --install-extension ms-playwright.playwright
-code --install-extension pomdtr.excalidraw-editor
-code --install-extension streetsidesoftware.code-spell-checker
-code --install-extension stylelint.vscode-stylelint
-code --install-extension wayou.vscode-todo-highlight
+call code --install-extension bierner.markdown-preview-github-styles
+call code --install-extension christian-kohler.path-intellisense
+call code --install-extension DavidAnson.vscode-markdownlint
+call code --install-extension dbaeumer.vscode-eslint
+call code --install-extension EditorConfig.EditorConfig
+call code --install-extension esbenp.prettier-vscode
+call code --install-extension euskadi31.json-pretty-printer
+call code --install-extension GitHub.copilot
+call code --install-extension GitHub.github-vscode-theme
+call code --install-extension GitHub.vscode-pull-request-github
+call code --install-extension jsynowiec.vscode-insertdatestring
+call code --install-extension mechatroner.rainbow-csv
+call code --install-extension mike-co.import-sorter
+call code --install-extension ms-playwright.playwright
+call code --install-extension pomdtr.excalidraw-editor
+call code --install-extension streetsidesoftware.code-spell-checker
+call code --install-extension stylelint.vscode-stylelint
+call code --install-extension wayou.vscode-todo-highlight

@@ -63,6 +63,17 @@
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore",
                 "startingDirectory": "%USERPROFILE%\\repos"
+            },
+            {
+            "guid": "{71160544-14d8-4194-af25-d05feeac7233}",
+            "name": "MSYS / MSYS2",
+            "commandline": "~\\scoop\\apps\\msys2\\current\\msys2_shell.cmd -defterm -here -no-start -msys",
+            "startingDirectory": "C:\\Users\\%USERNAME%\\scoop\\persist\\msys2\\home\\%USERNAME%",
+            "icon": "C:\\Users\\%USERNAME%\\scoop\\persist\\msys2\\msys2.ico",
+            "font": {
+                    "face": "Lucida Console",
+                    "size": 9
+                }
             }
         ]
     },

@@ -2,14 +2,14 @@
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
+Set-PSReadLineOption -MaximumHistoryCount 10000
 
 # Aliases
 function prompt {
-    $base = "PS "
     $path = "$($executionContext.SessionState.Path.CurrentLocation)"
     $userPrompt = "$('>' * ($nestedPromptLevel + 1)) "
 
-    Write-Host "`n$base" -NoNewline
+    Write-Host "`n" -NoNewline
 
     if (Test-Path .git) {
         Write-Host $path -NoNewline -ForegroundColor "green"

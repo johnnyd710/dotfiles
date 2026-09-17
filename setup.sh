@@ -79,7 +79,7 @@ elif [ "${OS}" = "Linux" ]; then
     fi
 
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install --user --noninteractive flathub md.obsidian.Obsidian
+    flatpak install --user --noninteractive flathub md.obsidian.Obsidian com.bitwarden.desktop
 fi
 
 GH_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/gh"

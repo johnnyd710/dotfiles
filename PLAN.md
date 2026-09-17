@@ -36,4 +36,4 @@ The repository is the source of truth. Unix setup uses symbolic links; Windows s
 - **Runtime/Languages:** Node, pnpm, Zig.
 - **AI/Dev Tools:** pi.dev, LMStudio.
 - **Shell/Term:** Fish, tmux, zoxide, Ghostty/Windows Terminal.
-- **Core Apps:** VS Code, Git, gh, Syncthing, Obsidian.
+- **Core Apps:** VS Code, Git, gh, Syncthing, Obsidian, Bitwarden.

@@ -1,25 +1,26 @@
-# Node.js
+# Node.js and TypeScript build artifacts
 node_modules/
 dist/
+*.tsbuildinfo
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 .pnpm-debug.log*
-package-lock.json
-pnpm-lock.yaml
 
-# Zig
+# Zig build artifacts
 zig-out/
 .zig-cache/
 
-# macOS
-.DS_Store
+# Local overrides and secrets
+*.local
+*.local.*
 
-# Logs & Temp
+# OS and editor metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Temporary files
 *.log
 tmp/
 temp/
-
-# IDEs
-.vscode/
-.idea/

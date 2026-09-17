@@ -1,6 +1,6 @@
 ---
 name: packlink
-description: Use packlink to link local packages in pnpm workspaces/monorepos via packed tarballs, avoiding singleton breakage, peer-dependency collisions, and preserving catalog: specifiers.
+description: "Use packlink to link local packages in pnpm workspaces/monorepos via packed tarballs, avoiding singleton breakage, peer-dependency collisions, and preserving catalog: specifiers."
 ---
 
 # packlink

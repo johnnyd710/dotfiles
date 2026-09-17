@@ -1,0 +1,12 @@
+{
+  "lastChangelogVersion": "0.85.1",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gemini-3.8-flash",
+  "defaultThinkingLevel": "medium",
+  "hideThinkingBlock": false,
+  "packages": [
+    "npm:@ff-labs/pi-fff"
+  ],
+  "collapseChangelog": false,
+  "theme": "dark"
+}

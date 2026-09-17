@@ -72,10 +72,14 @@ elif [ "${OS}" = "Linux" ]; then
     packages=()
     command -v gh >/dev/null || packages+=(gh)
     command -v syncthing >/dev/null || packages+=(syncthing)
+    command -v flatpak >/dev/null || packages+=(flatpak)
     if [ ${#packages[@]} -gt 0 ]; then
         sudo apt-get update
         sudo apt-get install -y "${packages[@]}"
     fi
+
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install --user --noninteractive flathub md.obsidian.Obsidian
 fi
 
 GH_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/gh"

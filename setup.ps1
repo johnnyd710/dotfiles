@@ -30,6 +30,7 @@ Write-Host "==> Setting up dotfiles from $dotfilesDir"
 winget install --id Git.Git
 winget install --id GitHub.cli
 winget install --id Syncthing.Syncthing
+winget install --id Obsidian.Obsidian
 winget install --id Microsoft.PowerShell.Preview
 winget install -e --id Microsoft.VisualStudioCode
 winget install --id Microsoft.WindowsTerminal.Preview

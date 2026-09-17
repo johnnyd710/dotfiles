@@ -7,6 +7,10 @@
   "packages": [
     "npm:@ff-labs/pi-fff"
   ],
+  "skills": [
+    "~/Repos/dotfiles/pi/skills",
+    "~/Repos/llm-wiki/skills"
+  ],
   "collapseChangelog": false,
   "theme": "dark"
 }

@@ -7,9 +7,9 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "==> Setting up dotfiles from ${DOTFILES_DIR}..."
 
 # Setup Git config
-if [ -f "${DOTFILES_DIR}/.gitconfig" ]; then
+if [ -f "${DOTFILES_DIR}/git/.gitconfig" ]; then
     echo "Linking ~/.gitconfig"
-    ln -sf "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig"
+    ln -sf "${DOTFILES_DIR}/git/.gitconfig" "${HOME}/.gitconfig"
 fi
 
 # Setup Pi configuration
@@ -38,10 +38,10 @@ elif [ "$(uname)" = "Linux" ]; then
     VSCODE_USER_DIR="${HOME}/.config/Code/User"
 fi
 
-if [ -n "${VSCODE_USER_DIR}" ] && [ -f "${DOTFILES_DIR}/settings.json" ]; then
+if [ -n "${VSCODE_USER_DIR}" ] && [ -f "${DOTFILES_DIR}/vscode/settings.json" ]; then
     mkdir -p "${VSCODE_USER_DIR}"
     echo "Linking VS Code settings.json..."
-    ln -sf "${DOTFILES_DIR}/settings.json" "${VSCODE_USER_DIR}/settings.json"
+    ln -sf "${DOTFILES_DIR}/vscode/settings.json" "${VSCODE_USER_DIR}/settings.json"
 fi
 
 echo "==> Dotfiles setup completed successfully!"

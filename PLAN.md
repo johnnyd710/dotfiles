@@ -11,29 +11,17 @@ Zero-to-productive. A single execution on a new machine (via Git or Syncthing) p
 
 ## Repository Structure
 
-### 1. `bin/` (The Entry Points)
-Contains minimal entry points that are added to the user's `PATH`.
-- **Simple Scripts:** Direct symlinks to single-file scripts.
-- **TypeScript Tools:** Small "shims" that launch the compiled code located in `tools/`.
-- **Zig/Native Tools:** Symlinks to the compiled binaries located in `tools/`.
+- `bin/`: portable helper scripts.
+- `git/`: Git configuration.
+- `pi/`: Pi configuration, extensions, and personal skills.
+- `powershell/`: PowerShell profile.
+- `vscode/`: VS Code user settings.
+- `windows-terminal/`: Windows Terminal user settings.
+- `itwin/templates/`: workspace templates used by `bin/create-cospace.ps1`.
+- `setup.sh`: macOS and Linux setup.
+- `setup.ps1`: native Windows setup.
 
-### 2. `tools/` (The Implementations)
-Dedicated directory for custom tools that require their own environment (dependencies, build steps).
-- Each sub-directory is a standalone project (e.g., `tools/pnpm-linker/`).
-- Contains its own `package.json`, `tsconfig.json`, or `build.zig`.
-- The build output (e.g., `dist/` or `zig-out/`) is ignored by Git.
-
-### 3. `configs/` (The Settings)
-The source of truth for all application settings.
-- Sub-directories for each tool (e.g., `configs/fish/`, `configs/vscode/`, `configs/tmux/`).
-- During installation, these are symlinked to the appropriate location in `$HOME`.
-
-### 4. `modules/` (The Brain)
-Modular scripts that handle the heavy lifting of installation.
-- `pkg_manager.sh`: Detects and uses brew, apt, or winget.
-- `software.sh`: Installs core toolchains (Node, Zig, etc.).
-- `setup_tools.sh`: Builds tools in `tools/` and links them to `bin/`.
-- `setup_configs.sh`: Symlinks items from `configs/` to `$HOME`.
+The repository is the source of truth. Unix setup uses symbolic links; Windows setup uses hard links for files and a directory junction for Pi extensions, so no administrator privileges or Developer Mode are required.
 
 ## Installation Workflow
 

@@ -11,6 +11,8 @@
 # https://github.com/cli/cli
 
 param ($dir, $viewerbranch, $corebranch, $vcr=$null)
+
+$templates = Join-Path $PSScriptRoot "..\itwin\templates"
 if ($dir -eq $null) {
   $dir = read-host -Prompt "Please enter a name for the new cospace directory." 
 }
@@ -27,10 +29,10 @@ if ($vcr -eq $null) {
 mkdir $dir
 cd $dir
 npx cospace init
-cp "$PSScriptRoot\templates\.pnpmfile.cjs" ".pnpmfile.cjs"
-cp "$PSScriptRoot\templates\cospace.code-workspace" "cospace.code-workspace"
-cp "$PSScriptRoot\templates\pnpm-workspace.yaml" "pnpm-workspace.yaml"
-cp "$PSScriptRoot\templates\.node-version" ".node-version"
+cp "$templates\.pnpmfile.cjs" ".pnpmfile.cjs"
+cp "$templates\cospace.code-workspace" "cospace.code-workspace"
+cp "$templates\pnpm-workspace.yaml" "pnpm-workspace.yaml"
+cp "$templates\.node-version" ".node-version"
 cd repos
 gh repo clone "iTwin/viewer" viewer -- --single-branch --depth 1 -b "$viewerbranch"
 gh repo clone "iTwin/itwinjs-core" itwinjs-core -- --single-branch --depth 1 -b "$corebranch"

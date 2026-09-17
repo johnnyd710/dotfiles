@@ -3,6 +3,7 @@ set -euo pipefail
 
 # Resolve repo root directory regardless of working directory
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OS="$(uname)"
 
 echo "==> Setting up dotfiles from ${DOTFILES_DIR}..."
 
@@ -32,9 +33,9 @@ mkdir -p "${PI_AGENT_DIR}/skills"
 
 # Setup VS Code settings if VS Code config directory exists
 VSCODE_USER_DIR=""
-if [ "$(uname)" = "Darwin" ]; then
+if [ "${OS}" = "Darwin" ]; then
     VSCODE_USER_DIR="${HOME}/Library/Application Support/Code/User"
-elif [ "$(uname)" = "Linux" ]; then
+elif [ "${OS}" = "Linux" ]; then
     VSCODE_USER_DIR="${HOME}/.config/Code/User"
 fi
 
@@ -44,7 +45,7 @@ if [ -n "${VSCODE_USER_DIR}" ] && [ -f "${DOTFILES_DIR}/vscode/settings.json" ];
     ln -sf "${DOTFILES_DIR}/vscode/settings.json" "${VSCODE_USER_DIR}/settings.json"
 fi
 
-if [ "$(uname)" = "Darwin" ]; then
+if [ "${OS}" = "Darwin" ]; then
     if ! command -v brew >/dev/null; then
         echo "Homebrew is required to install Fish and Ghostty: https://brew.sh" >&2
         exit 1
@@ -62,6 +63,24 @@ if [ "$(uname)" = "Darwin" ]; then
     ln -sf "${DOTFILES_DIR}/ghostty/config" "${GHOSTTY_CONFIG_DIR}/config"
 
     fish -c 'fisher install (cat ~/.config/fish/fish_plugins)'
+elif [ "${OS}" = "Linux" ] && ! command -v gh >/dev/null; then
+    if ! command -v apt-get >/dev/null; then
+        echo "GitHub CLI installation is supported on Debian/Ubuntu systems with apt." >&2
+        exit 1
+    fi
+
+    sudo apt-get update
+    sudo apt-get install -y gh
+fi
+
+GH_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/gh"
+mkdir -p "${GH_CONFIG_DIR}"
+echo "Linking GitHub CLI configuration..."
+ln -sf "${DOTFILES_DIR}/gh/config.yml" "${GH_CONFIG_DIR}/config.yml"
+
+if ! gh auth status >/dev/null 2>&1; then
+    echo "Authenticating GitHub CLI..."
+    gh auth login --git-protocol https
 fi
 
 echo "==> Dotfiles setup completed successfully!"

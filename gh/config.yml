@@ -1,0 +1,19 @@
+# The current version of the config schema
+version: 1
+# What protocol to use when performing git operations. Supported values: ssh, https
+git_protocol: https
+# When to interactively prompt. This is a global config that cannot be overridden by hostname.
+prompt: enabled
+# Preference for editor-based interactive prompting. This is a global config that cannot be overridden by hostname.
+prefer_editor_prompt: disabled
+# Aliases allow you to create nicknames for gh commands
+aliases:
+    co: pr checkout
+# Whether to display labels using their RGB hex color codes in terminals that support truecolor.
+color_labels: disabled
+# Whether customizable, 4-bit accessible colors should be used.
+accessible_colors: disabled
+# Whether an accessible prompter should be used.
+accessible_prompter: disabled
+# Whether to use an animated spinner as a progress indicator.
+spinner: enabled

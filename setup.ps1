@@ -34,6 +34,7 @@ winget install -e --id Microsoft.VisualStudioCode
 winget install --id Microsoft.WindowsTerminal.Preview
 
 Install-HardLink (Join-Path $dotfilesDir "git\.gitconfig") (Join-Path $env:USERPROFILE ".gitconfig")
+Install-HardLink (Join-Path $dotfilesDir "gh\config.yml") (Join-Path $env:APPDATA "GitHub CLI\config.yml")
 $powerShellProfile = Join-Path ([Environment]::GetFolderPath("MyDocuments")) "PowerShell\Microsoft.PowerShell_profile.ps1"
 Install-HardLink (Join-Path $dotfilesDir "powershell\Microsoft.PowerShell_profile.ps1") $powerShellProfile
 Install-HardLink (Join-Path $dotfilesDir "vscode\settings.json") (Join-Path $env:APPDATA "Code\User\settings.json")
@@ -57,6 +58,12 @@ $extensions = @(
 )
 foreach ($extension in $extensions) {
     code --install-extension $extension
+}
+
+gh auth status *> $null
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Authenticating GitHub CLI..."
+    gh auth login --git-protocol https
 }
 
 Write-Host "==> Dotfiles setup completed successfully!"

@@ -19,3 +19,19 @@ call code --install-extension christian-kohler.path-intellisense
 
 winget install --id=Microsoft.WindowsTerminal.Preview
 mklink /H "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json" ".\terminal.json"
+
+:: Pi configuration
+if not exist "%USERPROFILE%\.pi\agent" mkdir "%USERPROFILE%\.pi\agent"
+if not exist "%USERPROFILE%\.pi\agent\skills" mkdir "%USERPROFILE%\.pi\agent\skills"
+
+if exist "%USERPROFILE%\.pi\agent\settings.json" del /f "%USERPROFILE%\.pi\agent\settings.json"
+mklink /H "%USERPROFILE%\.pi\agent\settings.json" "%~dp0pi\settings.json"
+
+if exist "%USERPROFILE%\.pi\agent\models.json" del /f "%USERPROFILE%\.pi\agent\models.json"
+mklink /H "%USERPROFILE%\.pi\agent\models.json" "%~dp0pi\models.json"
+
+if exist "%USERPROFILE%\.pi\agent\AGENTS.md" del /f "%USERPROFILE%\.pi\agent\AGENTS.md"
+mklink /H "%USERPROFILE%\.pi\agent\AGENTS.md" "%~dp0pi\AGENTS.md"
+
+if exist "%USERPROFILE%\.pi\agent\extensions" rmdir "%USERPROFILE%\.pi\agent\extensions"
+mklink /J "%USERPROFILE%\.pi\agent\extensions" "%~dp0pi\extensions"

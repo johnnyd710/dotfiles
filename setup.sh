@@ -45,6 +45,13 @@ if [ -n "${VSCODE_USER_DIR}" ] && [ -f "${DOTFILES_DIR}/vscode/settings.json" ];
 fi
 
 if [ "$(uname)" = "Darwin" ]; then
+    if ! command -v brew >/dev/null; then
+        echo "Homebrew is required to install Fish and Ghostty: https://brew.sh" >&2
+        exit 1
+    fi
+
+    brew bundle --file "${DOTFILES_DIR}/Brewfile"
+
     FISH_CONFIG_DIR="${HOME}/.config/fish"
     GHOSTTY_CONFIG_DIR="${HOME}/Library/Application Support/com.mitchellh.ghostty"
 
@@ -53,6 +60,8 @@ if [ "$(uname)" = "Darwin" ]; then
     ln -sf "${DOTFILES_DIR}/fish/config.fish" "${FISH_CONFIG_DIR}/config.fish"
     ln -sf "${DOTFILES_DIR}/fish/fish_plugins" "${FISH_CONFIG_DIR}/fish_plugins"
     ln -sf "${DOTFILES_DIR}/ghostty/config" "${GHOSTTY_CONFIG_DIR}/config"
+
+    fish -c 'fisher install (cat ~/.config/fish/fish_plugins)'
 fi
 
 echo "==> Dotfiles setup completed successfully!"

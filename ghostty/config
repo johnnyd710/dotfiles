@@ -1,0 +1,4 @@
+# macOS Ghostty preferences
+shell-integration = fish
+font-family = "Google Sans Code"
+font-size = 14

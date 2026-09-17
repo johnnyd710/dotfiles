@@ -44,4 +44,15 @@ if [ -n "${VSCODE_USER_DIR}" ] && [ -f "${DOTFILES_DIR}/vscode/settings.json" ];
     ln -sf "${DOTFILES_DIR}/vscode/settings.json" "${VSCODE_USER_DIR}/settings.json"
 fi
 
+if [ "$(uname)" = "Darwin" ]; then
+    FISH_CONFIG_DIR="${HOME}/.config/fish"
+    GHOSTTY_CONFIG_DIR="${HOME}/Library/Application Support/com.mitchellh.ghostty"
+
+    mkdir -p "${FISH_CONFIG_DIR}" "${GHOSTTY_CONFIG_DIR}"
+    echo "Linking Fish and Ghostty configuration..."
+    ln -sf "${DOTFILES_DIR}/fish/config.fish" "${FISH_CONFIG_DIR}/config.fish"
+    ln -sf "${DOTFILES_DIR}/fish/fish_plugins" "${FISH_CONFIG_DIR}/fish_plugins"
+    ln -sf "${DOTFILES_DIR}/ghostty/config" "${GHOSTTY_CONFIG_DIR}/config"
+fi
+
 echo "==> Dotfiles setup completed successfully!"

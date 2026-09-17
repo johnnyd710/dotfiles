@@ -63,14 +63,19 @@ if [ "${OS}" = "Darwin" ]; then
     ln -sf "${DOTFILES_DIR}/ghostty/config" "${GHOSTTY_CONFIG_DIR}/config"
 
     fish -c 'fisher install (cat ~/.config/fish/fish_plugins)'
-elif [ "${OS}" = "Linux" ] && ! command -v gh >/dev/null; then
+elif [ "${OS}" = "Linux" ]; then
     if ! command -v apt-get >/dev/null; then
-        echo "GitHub CLI installation is supported on Debian/Ubuntu systems with apt." >&2
+        echo "GitHub CLI and Syncthing installation are supported on Debian/Ubuntu systems with apt." >&2
         exit 1
     fi
 
-    sudo apt-get update
-    sudo apt-get install -y gh
+    packages=()
+    command -v gh >/dev/null || packages+=(gh)
+    command -v syncthing >/dev/null || packages+=(syncthing)
+    if [ ${#packages[@]} -gt 0 ]; then
+        sudo apt-get update
+        sudo apt-get install -y "${packages[@]}"
+    fi
 fi
 
 GH_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/gh"

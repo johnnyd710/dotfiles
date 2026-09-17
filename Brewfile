@@ -1,4 +1,5 @@
 brew "fish"
 brew "fisher"
 brew "gh"
+brew "syncthing"
 cask "ghostty"

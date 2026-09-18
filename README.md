@@ -32,7 +32,7 @@ Windows bootstrap requires `winget` and installs Git when necessary.
 ./setup.sh
 ```
 
-On macOS, `setup.sh` uses the `Brewfile` to install Git, Fish, Fisher, GitHub CLI, Syncthing, Ghostty, Obsidian, and Bitwarden. On Debian/Ubuntu, it installs GitHub CLI and Syncthing with `apt`, and installs Obsidian and Bitwarden from Flathub using Flatpak.
+On macOS, `setup.sh` uses the `Brewfile` to install Git, Fish, Fisher, GitHub CLI, Syncthing, Zig, Ghostty, Obsidian, and Bitwarden. On Debian/Ubuntu, it installs GitHub CLI, Syncthing, and Zig with `apt`, and installs Obsidian and Bitwarden from Flathub using Flatpak.
 
 On Windows, run:
 
@@ -40,7 +40,7 @@ On Windows, run:
 .\setup.ps1
 ```
 
-It requires `winget` and installs Git, GitHub CLI, Syncthing, Obsidian, Bitwarden, PowerShell Preview, VS Code, and Windows Terminal Preview.
+It requires `winget` and installs Git, GitHub CLI, Syncthing, Obsidian, Bitwarden, Zig, PowerShell Preview, VS Code, and Windows Terminal Preview.
 
 ## Tracked configuration
 

@@ -72,6 +72,7 @@ elif [ "${OS}" = "Linux" ]; then
     packages=()
     command -v gh >/dev/null || packages+=(gh)
     command -v syncthing >/dev/null || packages+=(syncthing)
+    command -v zig >/dev/null || packages+=(zig)
     command -v flatpak >/dev/null || packages+=(flatpak)
     if [ ${#packages[@]} -gt 0 ]; then
         sudo apt-get update

@@ -49,7 +49,6 @@ It requires `winget` and installs Git, GitHub CLI, Syncthing, Obsidian, Bitwarde
 - `gh/`: non-secret GitHub CLI preferences and aliases.
 - `ghostty/`: macOS Ghostty configuration.
 - `git/`: Git configuration.
-- `itwin/templates/`: templates used by `bin/create-cospace.ps1`.
 - `pi/`: Pi configuration, extensions, and personal skills.
 - `powershell/`: PowerShell profile.
 - `vscode/`: VS Code user settings.

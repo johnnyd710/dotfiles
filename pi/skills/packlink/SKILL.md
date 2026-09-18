@@ -21,41 +21,35 @@ description: "Use packlink to link local packages in pnpm workspaces/monorepos v
 ## Core Workflow
 
 ### 1. Push Package to Local Store (Source Package Repo)
-Run inside the root of the package you are actively editing:
+Run inside the package or root of the source repository:
 
 ```bash
+# Push all packages in a monorepo in topological order:
 packlink push
+
+# Push only a single package without internal dependencies:
+packlink push --no-deps
 ```
 
-- Automatically detects monorepos (`pnpm-workspace.yaml` or Rush `rush.json`), discovers internal sibling dependencies, and builds/packs them in topological order (e.g. `@itwin/core-bentley` -> `@itwin/core-geometry` -> `@itwin/core-common` -> `@itwin/core-backend`).
-- Pass `--no-deps` to push only the single target package without building/pushing its internal dependencies.
+- In a monorepo (`pnpm-workspace.yaml` or Rush `rush.json`), discovers all publishable workspace packages and packs them in topological order.
 - Verifies `package.json` contains a `"build"` script and runs build (skip with `--no-build`).
 - Uses dual-pack manifest injection (`npm pack` + `pnpm pack`) to preserve files while resolving `workspace:*` dependency manifests.
 - Writes cache-busting timestamped tarballs to the local store (`path.join(tmpdir(), "packlink-store")` or `$PACKLINK_STORE`).
 
 ### 2. Link Package into Consumer (Consumer App / Workspace)
-Run inside the consuming project:
+Run inside the consuming project or monorepo root:
 
 ```bash
-# Interactive selection:
+# Interactive selection or link a package from a monorepo family:
 packlink link
-
-# Or link specific package(s) by name:
-packlink link <package-name>
-packlink link @bentley/itwin-saved-views-widget
-# Or link core-backend (automatically links core-common, core-geometry, etc.):
-packlink link @itwin/core-backend
+packlink link @itwin/core-frontend
 ```
 
-- Automatically resolves and links internal workspace dependency closures stored with the package.
-- When run at a monorepo root (`pnpm-workspace.yaml`), it prompts for which sub-package to target or allows choosing the root.
-- You can target a specific directory explicitly:
-  ```bash
-  packlink link <package-name> --target <path-to-subpackage>
-  ```
-- Backs up original dependency specifiers and their sections (`dependencies`, `devDependencies`, `peerDependencies`) into `.packlink.json`.
+- Automatically applies tarball overrides to `pnpm-workspace.yaml` at the workspace root, guaranteeing all subprojects resolve to the exact same physical package instances in pnpm's virtual store.
+- Sets required `packageExtensions` for third-party packages with undeclared peer dependencies.
+- Runs `pnpm install` at workspace root without polluting individual `package.json` files.
+- Backs up original overrides and specifiers into `.packlink.json`.
 - Automatically ensures `.packlink.json` is added to `.gitignore`.
-- Runs `pnpm add <tarball-path...>` (with `-w` if at workspace root).
 
 ### 3. Iterate
 When changes are made in the source repository:

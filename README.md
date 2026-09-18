@@ -2,37 +2,45 @@
 
 Personal configuration and setup scripts for macOS, Debian/Ubuntu, and Windows.
 
-## Setup
+## Bootstrap a new machine
 
-Clone this repository to `~/Repos/dotfiles` (or the equivalent Windows path) and run the platform setup script from the repository root.
+The bootstrap scripts install the prerequisites needed to obtain this repository, clone it to `~/Repos/dotfiles` (or `$HOME\Repos\dotfiles` on Windows), then run the platform setup script. An existing valid checkout is reused without automatically pulling or overwriting changes.
 
-### macOS
-
-Homebrew is required. Install it from <https://brew.sh>, then run:
+### macOS / Debian / Ubuntu
 
 ```bash
-./setup.sh
+curl -fsSL https://raw.githubusercontent.com/johnnyd710/dotfiles/master/bootstrap.sh | bash
 ```
 
-`setup.sh` uses the `Brewfile` to install Fish, Fisher, GitHub CLI, Syncthing, Ghostty, Obsidian, and Bitwarden.
-
-### Debian/Ubuntu
-
-```bash
-./setup.sh
-```
-
-The script installs GitHub CLI and Syncthing with `apt`. It installs Obsidian and Bitwarden from Flathub using Flatpak.
+On macOS, bootstrap installs Homebrew when necessary, then installs Git. On Debian/Ubuntu, it installs Git with `apt`.
 
 ### Windows
 
 Run from PowerShell:
 
 ```powershell
+irm https://raw.githubusercontent.com/johnnyd710/dotfiles/master/bootstrap.ps1 | iex
+```
+
+Windows bootstrap requires `winget` and installs Git when necessary.
+
+> `curl | bash` and `irm | iex` execute the current script on the `master` branch. To review it first, download the script, inspect it, then execute the local copy.
+
+## Run setup from an existing checkout
+
+```bash
+./setup.sh
+```
+
+On macOS, `setup.sh` uses the `Brewfile` to install Git, Fish, Fisher, GitHub CLI, Syncthing, Ghostty, Obsidian, and Bitwarden. On Debian/Ubuntu, it installs GitHub CLI and Syncthing with `apt`, and installs Obsidian and Bitwarden from Flathub using Flatpak.
+
+On Windows, run:
+
+```powershell
 .\setup.ps1
 ```
 
-The script requires `winget` and installs Git, GitHub CLI, Syncthing, Obsidian, Bitwarden, PowerShell Preview, VS Code, and Windows Terminal Preview.
+It requires `winget` and installs Git, GitHub CLI, Syncthing, Obsidian, Bitwarden, PowerShell Preview, VS Code, and Windows Terminal Preview.
 
 ## Tracked configuration
 

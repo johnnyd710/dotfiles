@@ -27,10 +27,11 @@ Run inside the root of the package you are actively editing:
 packlink push
 ```
 
-- Verifies `package.json` contains a `"build"` script and runs `pnpm build`.
-  - Pass `--no-build` if the build step should be skipped: `packlink push --no-build`.
+- Automatically detects monorepos (`pnpm-workspace.yaml` or Rush `rush.json`), discovers internal sibling dependencies, and builds/packs them in topological order (e.g. `@itwin/core-bentley` -> `@itwin/core-geometry` -> `@itwin/core-common` -> `@itwin/core-backend`).
+- Pass `--no-deps` to push only the single target package without building/pushing its internal dependencies.
+- Verifies `package.json` contains a `"build"` script and runs build (skip with `--no-build`).
 - Uses dual-pack manifest injection (`npm pack` + `pnpm pack`) to preserve files while resolving `workspace:*` dependency manifests.
-- Writes a cache-busting timestamped tarball to the local store (`path.join(tmpdir(), "packlink-store")` or `$PACKLINK_STORE`).
+- Writes cache-busting timestamped tarballs to the local store (`path.join(tmpdir(), "packlink-store")` or `$PACKLINK_STORE`).
 
 ### 2. Link Package into Consumer (Consumer App / Workspace)
 Run inside the consuming project:
@@ -42,8 +43,11 @@ packlink link
 # Or link specific package(s) by name:
 packlink link <package-name>
 packlink link @bentley/itwin-saved-views-widget
+# Or link core-backend (automatically links core-common, core-geometry, etc.):
+packlink link @itwin/core-backend
 ```
 
+- Automatically resolves and links internal workspace dependency closures stored with the package.
 - When run at a monorepo root (`pnpm-workspace.yaml`), it prompts for which sub-package to target or allows choosing the root.
 - You can target a specific directory explicitly:
   ```bash
@@ -51,7 +55,7 @@ packlink link @bentley/itwin-saved-views-widget
   ```
 - Backs up original dependency specifiers and their sections (`dependencies`, `devDependencies`, `peerDependencies`) into `.packlink.json`.
 - Automatically ensures `.packlink.json` is added to `.gitignore`.
-- Runs `pnpm add <tarball-path>` (with `-w` if at workspace root).
+- Runs `pnpm add <tarball-path...>` (with `-w` if at workspace root).
 
 ### 3. Iterate
 When changes are made in the source repository:

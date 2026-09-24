@@ -63,7 +63,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ## Safety & Git Constraints
 - **Never run an unscoped/global `find`** (e.g. `find / ...`, `find ~ ...`, or any `find` without a narrow, specific starting path). It scans the whole filesystem, is slow, and can hang/abort. Use `fffind`/`ffgrep` instead in a scoped directory.
 - Ignore hidden files (`.obsidian`, `.trash`, etc.) unless requested.
-- **Strictly read-only Git:** NEVER run `git add`, `commit`, `push`, or `checkout`.
+- **Strictly read-only Git:** NEVER run `git add`, `commit`, `push`, or `checkout` unless explicitly instructed to do so or given permission in a certain repository (like llm-wiki).
 - Only use `git diff` (prefer `--stat` or `-U1`), `git status`, or `git log` to inspect state.
 - Never leave comments that reference details from chats but make very little sense in the context of reading it in the codebase.
 

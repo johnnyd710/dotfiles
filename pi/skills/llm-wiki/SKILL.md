@@ -64,23 +64,29 @@ resource: https://...    # Canonical URI or local path
 ## Core Operations
 
 ### 1. Consult / Query
-- The user asks *"why did we do X this way?"*, *"what did we decide about Y?"*, or asks to synthesize existing knowledge.
-- **Protocol:**
-  1. Read root `index.md` to locate candidate concepts, then drill down into relevant files in `concepts/` or use `ffgrep`.
-  2. Synthesize answers citing wiki pages (`[Page](/concepts/page.md)`) and raw sources.
-  3. **Compound back:** When a query yields a durable comparison, architecture synthesis, or new insight, file it into `concepts/`, update `index.md`, and append to `log.md`.
+- The user asks *"What is X?"*, *"why did we do X this way?"*, *"what did we decide about Y?"*, or asks to synthesize existing knowledge.
+- **Mandatory wiki-first and citation protocol:**
+  1. Read root `index.md` first to locate candidate concepts.
+  2. Search and read the relevant `concepts/` note before relying on external repository inspection.
+  3. If the wiki contains the answer, cite the applicable concept in the response using a standard link (`[Page](/concepts/page.md)`). Do not answer from memory or external code alone when a wiki note exists.
+  4. If the concept has provenance, cite the underlying raw source and/or canonical external resource as well.
+  5. If no applicable wiki note exists, say so explicitly, identify the external source used, and consider whether the durable result should be compounded back into the wiki.
+  6. Distinguish clearly between claims established by the wiki, claims verified in current source code, and proposed or uncertain interpretations.
+- **Compound back:** When a query yields a durable comparison, architecture synthesis, or new insight, file it into `concepts/`, update `index.md`, and append to `log.md`.
 
 ### 2. Ingest / Capture
 - The user asks to capture, record, summarize, or remember something, or drops a source into `raw/`.
 - **Protocol:**
-  1. **Provenance:** Save the untouched source or a faithful Markdown representation to `raw/` or `raw/`, with `type: source` frontmatter. Do not alter its body after ingestion without user approval.
-  2. **Compile:** Update or create focused concept pages in `concepts/<slug>.md` using OKF YAML frontmatter (`type: ...`) and standard markdown links (`[Title](/concepts/foo.md)`). Keep notes atomic: one concept per file (if the title needs "and", split into separate linked notes).
-  3. **Contradictions:** Flag any conflicts with previous notes using callouts (`> [!warning] Contradiction`).
-  4. **Catalog:** Add the source and summary to `raw/index.md`; add compiled notes to root `index.md`.
-  5. **Log:** Maintain distinct logging responsibilities without duplication:
-     - `raw/log.md`: Record source provenance only (origin, file format, destination path, extracted assets).
-     - Root `log.md`: Record compiled wiki synthesis only (new concepts, entities, ADRs, or workflows created/updated).
-     Format:
+  1. **Preserve provenance:** Save the untouched source or a faithful Markdown representation under `raw/` with `type: source` frontmatter. Do not edit its body after ingestion without user approval.
+  2. **Extract:** Read the source and identify reusable facts, decisions, constraints, caveats, examples, relationships, assumptions, and open questions. Preserve who said or decided what, and distinguish established behavior from proposals or uncertainty.
+  3. **Choose scope:** Create one focused concept per `concepts/<slug>.md`; do not retell the entire source or create one file per isolated sentence. Treat every substantive heading as a scope check: split topics that are independently useful; keep related facets together only when they answer the same retrieval question.
+  4. **Draft directly:** Start with the key claim. Omit scene-setting, repeated summaries/conclusions, generic rationale, and filler. Every paragraph or bullet must add distinct information. Use concise headings only when they help retrieve separate facets.
+  5. **Keep useful examples and links:** Include code/API examples when they clarify behavior or provide a reusable pattern; examples are encouraged, not presumed verbose. Link to related concept notes, the raw source, and relevant primary documentation where useful. Official documentation entry points include [Studio docs](https://github.com/iTwin/studio/tree/main/docs) and [iTwin.js core docs](https://github.com/iTwin/itwinjs-core/tree/master/docs); prefer a specific relevant page when available.
+  6. **Run a separate compression pass:** After drafting, remove repeated claims and source retelling; reconsider headings that may indicate multiple topics; retain examples and detail that help answer likely questions. Compare against the source to ensure no material qualification, attribution, decision, uncertainty, or provenance was lost.
+  7. **Format and connect:** Add OKF frontmatter and standard links (`[Title](/concepts/foo.md)`). Flag contradictions with existing knowledge using `> [!warning] Contradiction`.
+  8. **Catalog and log:** Add the source to `raw/index.md` and compiled concepts to root `index.md`. Keep logs distinct:
+     - `raw/log.md`: Source provenance only (origin, format, destination path, assets).
+     - Root `log.md`: Compiled synthesis only (concepts, decisions, workflows created or updated).
      ```markdown
      ## [YYYY-MM-DD] ingest | <Title or Source>
      - Summary of updates.
@@ -88,6 +94,7 @@ resource: https://...    # Canonical URI or local path
 
 ### 3. Lint
 - Periodically check vault health: verify mandatory `type` frontmatter, orphan notes, broken links, stale claims superseded by newer ADRs, or concept gaps. Record findings in root `log.md`.
+- For a concision/structure review of compiled concept notes, use the separate `llm-wiki-lint` skill. It reports recommendations and does not edit notes unless the user asks.
 - Scan for monolithic or compound notes: Flag files with 'and' in their slug/title or notes exceeding ~300 lines that cover multiple distinct architectural concepts. Propose refactoring/splitting them into atomic notes.
 - **Linter Scope:** Check only OKF knowledge and source domains: `concepts/` and `raw/`. Exclude `skills/` (which use agent skill frontmatter) and `canvas/` (JSON Canvas) to avoid false positives.
 

@@ -1,15 +1,15 @@
 ---
-name: requirements-engineering
-description: Write an implementation PLAN before coding. Use when the user asks for a plan, requirements, design, or proposal before implementation. Elicit missing requirements with an explicit ignoramus pass; express behavior as user-manual scenarios; identify ambiguity and blocking decisions; produce a traceable plan without implementing.
+name: plan
+description: Create a requirements-first implementation plan for a software change. Use when the user asks to plan a feature, bug fix, or other code change before implementation. Elicit missing requirements with an explicit ignoramus pass; express behavior as user-manual scenarios; identify ambiguity and blocking decisions; produce a traceable plan without implementing.
 ---
 
-# Requirements-Engineering Plan
+# Plan
 
 ## Objective
 
 Produce a PLAN that another agent can implement without guessing about user-visible behavior, authorization, data changes, compatibility, or verification.
 
-Do not implement while using this skill.
+For the planning request, produce the PLAN only; do not implement changes. A later explicit request to implement is outside this skill's scope.
 
 ## Procedure
 
@@ -31,7 +31,7 @@ Do not infer a product decision from a convenient implementation.
 
 After forming an initial understanding, switch to an independent-review role. Treat domain terms, transitions, and implied rules as unknown. Generate questions whose answers could change behavior, scope, permissions, persisted data, API shape, compatibility, or tests.
 
-Check at least:
+Use these as prompts, not a checklist to fill mechanically. Consider only cases relevant to the workflow; omit irrelevant ones rather than recording `N/A`.
 
 - Who performs the action, with what preconditions and inputs?
 - What exact result do they receive or observe?
@@ -40,7 +40,7 @@ Check at least:
 - What is stored, returned, revealed, or irreversible?
 - How can a test or user distinguish success from failure?
 
-Classify each result as exactly one of:
+Classify each material finding as exactly one of:
 
 - **Requirement** — observable behavior or acceptance condition.
 - **Constraint** — mandated implementation or operational boundary.
@@ -63,7 +63,7 @@ For every changed workflow, write the behavior before writing code steps:
 - Acceptance: ...
 ```
 
-Use concrete examples only when they remove ambiguity. Include only meaningful boundary cases; do not pad the plan with generic error handling.
+Treat the scenario template as a guide: omit the boundary/failure behavior field when no meaningful case exists. Use concrete examples only when they remove ambiguity; do not pad the plan with generic error handling.
 
 ### 4. Remove ambiguity
 
@@ -80,7 +80,11 @@ Example:
 - Requirement: `The server must not return another user's private metadata.`
 - Rationale (optional): `Client-side filtering would not enforce that rule.`
 
-### 5. Map behavior to minimal changes and checks
+### 5. Map dependencies to slices, changes, and checks
+
+First map relevant dependencies among affected components and workflows using repository evidence and explicit requirements. Represent edges as `prerequisite → dependent` (for example, schema/migration → API contract/endpoint → client → UI); include validation or seed data only when applicable. Distinguish confirmed dependencies from assumptions or open questions.
+
+Order work bottom-up with respect to genuine dependencies. For features spanning multiple layers, group implementation steps into vertical slices: each slice delivers one complete, independently testable workflow through all the layers it needs. Do not build every technical layer for the whole feature before delivering behavior. Shared foundation work may come first only when it is a genuine prerequisite; identify the slice(s) it enables. When vertical slices do not fit the feature, organize steps around independently verifiable outcomes.
 
 For each implementation step, name a path and symbol/region when evidence permits. State the minimal change and the requirement/scenario it satisfies. Do not include speculative refactoring.
 
@@ -88,7 +92,7 @@ For each scenario, name an inspectable verification: deterministic test, exact m
 
 ## 6. Required PLAN output
 
-Use these sections in this order. Omit `Rationale` only when it is not needed.
+Use these sections in this order. Include **Dependencies** when they affect implementation order, **Open questions and assumptions** only when there are any, **Rationale** only when consequential rationale is needed, and **Out of scope** only when something material is excluded. Omit empty optional sections instead of adding placeholder bullets or `None`.
 
 ```markdown
 # PLAN: [feature]
@@ -112,6 +116,9 @@ Use these sections in this order. Omit `Rationale` only when it is not needed.
 - Boundary/failure behavior: ...
 - Acceptance: ...
 
+## Dependencies
+- [prerequisite] → [dependent]
+
 ## Rationale
 - [Only consequential design history/tradeoffs; never restate requirements.]
 
@@ -133,7 +140,9 @@ Before responding, verify:
 - Requirements are observable; rationale is not presented as a requirement.
 - Material unknowns are explicit and block implementation when unresolved.
 - The user-facing behavior covers normal and relevant boundary cases.
+- Dependencies that affect ordering are evidence-based and represented; implementation order respects them.
 - Each implementation step and check traces to a requirement or constraint.
+- Multi-layer features are planned as vertical slices where applicable, not layer-first batches.
 - The plan does not contain implementation changes, speculative work, or generic filler.
 
 ## 8. Operating principles

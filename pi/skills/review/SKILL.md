@@ -35,4 +35,4 @@ Report the PR URL and local branch/supplement reviewed when relevant, followed b
 1. [P1] `path/to/file.ts:42` — [concrete issue, impact, and concise correction].
 ```
 
-If there are no actionable findings, say `No actionable findings.` Do not include implementation changes.
+If there are no actionable findings, say `No actionable findings.` Do not include implementation changes. Be prepared to include code samples illustrating the problem and potential fixes if they help clarify your findings.

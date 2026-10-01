@@ -12,11 +12,11 @@ If not installed: `npm install -g knap` (requires Node.js 20 or later). Alternat
 Run `knap --help` for available commands and options. Discover the language through the CLI's offline reference:
 
 ```bash
-knap help syntax
-knap help filters
-knap help filter date
-knap help tags
-knap help tag for
+npx knap help syntax
+npx knap help filters
+npx knap help filter date
+npx knap help tags
+npx knap help tag for
 ```
 
 Use the lists to find names, then request individual help for syntax, parameters, and examples with expected output.
@@ -26,20 +26,20 @@ Use the lists to find names, then request individual help for syntax, parameters
 Render a template with JSON variables:
 
 ```bash
-knap render template.md --data article.json -o note.md
+npx knap render template.md --data article.json -o note.md
 ```
 
 Supply a template and data inline:
 
 ```bash
-knap render -t '# {{ title | trim }}' --data-json '{"title":"Hello"}'
+npx knap render -t '# {{ title | trim }}' --data-json '{"title":"Hello"}'
 ```
 
 Override a variable or pipe JSON data:
 
 ```bash
-knap render template.md --data article.json --set 'title=Custom title'
-cat article.json | knap render template.md --data -
+npx knap render template.md --data article.json --set 'title=Custom title'
+cat article.json | npx knap render template.md --data -
 ```
 
 Data must be a JSON object; its properties become template variables. `--set` overrides literal top-level keys with strings. Use JSON for nested objects, arrays, numbers, and booleans.
@@ -70,7 +70,7 @@ Use `yaml_property` for complete frontmatter properties so values are quoted and
 Check a template before rendering:
 
 ```bash
-knap validate template.md
+npx knap validate template.md
 ```
 
 Validation checks syntax, filter names, and static filter arguments without data or file output. It does not check variable existence, runtime values, or dynamic arguments; render with real data to check runtime behavior. Diagnostics go to stderr and include relevant help commands.
@@ -81,7 +81,7 @@ Extract a web page as JSON with Markdown content, then render it into a note:
 
 ```bash
 defuddle parse https://example.com/article --md --json \
-  | knap render template.md --data - -o note.md
+  | npx knap render template.md --data - -o note.md
 ```
 
 Defuddle's JSON properties, such as `title` and `content`, become template variables directly.
@@ -91,7 +91,7 @@ Defuddle's JSON properties, such as `title` and `content`, become template varia
 Create one file per CSV row, JSON array object, or JSON file in a folder:
 
 ```bash
-knap batch template.md --data articles.csv --output-dir notes \
+npx knap batch template.md --data articles.csv --output-dir notes \
   --filename '{{ title | safe_name }}.md'
 ```
 

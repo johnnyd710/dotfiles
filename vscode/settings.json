@@ -2,7 +2,6 @@
   "workbench.colorTheme": "GitHub Dark",
   "editor.minimap.enabled": false,
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
   "editor.fontFamily": "RobotoMono Nerd Font, Source Code Pro",
   "cSpell.userWords": [
     "cospace",
@@ -71,4 +70,5 @@
     "markdown"
   ],
   "githubIssues.userCompletions.enabled": false,
+  "git.confirmSync": false,
 }

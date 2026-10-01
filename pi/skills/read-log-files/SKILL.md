@@ -35,3 +35,22 @@ Use this skill when investigating issues, errors, or application runtime behavio
 3. **Handle log rotation:**
    - Identify active vs rotated files (e.g. `.log.1`, `.log.gz`).
    - Focus on the newest file unless the incident occurred earlier.
+
+## ITwin Studio
+
+`iTwin Studio` application log verbosity is controlled by a JSON file (`logs.config.json`). Logs are typically found in the following locations:
+
+- **macOS:**
+  - `~/Library/Logs/iTwin Studio/{appId}`
+  - `~/Library/Application Support/Bentley/iTwin Studio/logs.config.json`
+- **Linux:**
+  - `~/.local/state/iTwin Studio/` or `~/.cache/iTwin Studio/`
+  - `~/.local/state/Bentley/iTwin Studio/logs.config.json`
+- **Windows:**
+  - `%LOCALAPPDATA%\iTwin Studio\Logs\{appId}`
+  - `%APPDATA%\iTwin Studio\Logs`
+  - `%LOCALAPPDATA%\Bentley\iTwin Studio\logs.config.json`
+
+### Other iTwinStudio paths:
+
+Run `iTwinStudio paths` to get the current paths for various iTwin Studio directories and files on your OS.

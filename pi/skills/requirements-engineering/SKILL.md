@@ -65,26 +65,7 @@ For every changed workflow, write the behavior before writing code steps:
 
 Use concrete examples only when they remove ambiguity. Include only meaningful boundary cases; do not pad the plan with generic error handling.
 
-### 4. Decide whether to prototype
-
-Create a throwaway prototype only when it answers a named, material requirements question better than prose, normally for UI, interaction sequence, state transitions, or presentation.
-
-If needed, put this in the PLAN **before** creating it:
-
-```markdown
-## Prototype
-- Question: ...
-- Modeled: ...
-- Excluded: ...
-- Review decision: ...
-- Disposition: delete; do not reuse as production code.
-```
-
-For backend/data/auth changes, state `No prototype: [reason]` when no user-visible ambiguity exists. Do not introduce a prototype by default.
-
-When a prototype exists, transfer every agreed behavior into manual scenarios. Never treat prototype code or shared memory as the specification.
-
-### 5. Remove ambiguity
+### 4. Remove ambiguity
 
 For each requirement and scenario, verify that trigger, subject, outcome, boundary, and acceptance are explicit. Replace vague terms such as “support,” “handle,” “appropriate,” “valid,” “fast,” or “if needed” with a condition, example, or open question.
 
@@ -99,15 +80,15 @@ Example:
 - Requirement: `The server must not return another user's private metadata.`
 - Rationale (optional): `Client-side filtering would not enforce that rule.`
 
-### 6. Map behavior to minimal changes and checks
+### 5. Map behavior to minimal changes and checks
 
 For each implementation step, name a path and symbol/region when evidence permits. State the minimal change and the requirement/scenario it satisfies. Do not include speculative refactoring.
 
 For each scenario, name an inspectable verification: deterministic test, exact manual check, or both. For a bounded behavior matrix, enumerate every case; do not claim coverage from a tool that can silently omit cases.
 
-## Required PLAN output
+## 6. Required PLAN output
 
-Use these sections in this order. Omit `Rationale` and `Prototype` only when they are not needed.
+Use these sections in this order. Omit `Rationale` only when it is not needed.
 
 ```markdown
 # PLAN: [feature]
@@ -131,9 +112,6 @@ Use these sections in this order. Omit `Rationale` and `Prototype` only when the
 - Boundary/failure behavior: ...
 - Acceptance: ...
 
-## Prototype
-- [Only if required; otherwise `No prototype: ...`.]
-
 ## Rationale
 - [Only consequential design history/tradeoffs; never restate requirements.]
 
@@ -147,7 +125,7 @@ Use these sections in this order. Omit `Rationale` and `Prototype` only when the
 - ...
 ```
 
-## Final gate
+## 7. Final gate
 
 Before responding, verify:
 
@@ -155,14 +133,12 @@ Before responding, verify:
 - Requirements are observable; rationale is not presented as a requirement.
 - Material unknowns are explicit and block implementation when unresolved.
 - The user-facing behavior covers normal and relevant boundary cases.
-- A prototype is explicitly accepted or rejected.
 - Each implementation step and check traces to a requirement or constraint.
 - The plan does not contain implementation changes, speculative work, or generic filler.
 
-## Operating principles
+## 8. Operating principles
 
 - **Ignorance:** ask the basic question that exposes the domain expert's tacit assumption.
 - **User manual first:** specify what the user does and sees before deciding code structure.
-- **Prototype discipline:** prototype to answer a question, document the answer, then discard it.
 - **Ambiguity is a defect:** resolve it, constrain it, or mark it open.
 - **Complete checks over opaque automation:** for a bounded set, inspect every required case.

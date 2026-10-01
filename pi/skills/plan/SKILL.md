@@ -41,6 +41,7 @@ Apply these prompts selectively in the delegated review, or use them yourself wh
 - Who is allowed and denied? What existing caller or data must remain unaffected?
 - What is stored, returned, revealed, or irreversible?
 - How can a test or user distinguish success from failure?
+- What must not happen, or must remain unchanged or absent?
 
 Classify each material finding as exactly one of:
 
@@ -71,6 +72,8 @@ Treat the scenario template as a guide: omit the boundary/failure behavior field
 
 For each requirement and scenario, verify that trigger, subject, outcome, boundary, and acceptance are explicit. Replace vague terms such as “support,” “handle,” “appropriate,” “valid,” “fast,” or “if needed” with a condition, example, or open question.
 
+Make material known prohibitions and invariants explicit: what must not happen, or must remain unchanged or absent. Do not turn unanswered questions into invented prohibitions. Prefer removing or narrowing behavior over adding a capability when it still meets the stated goal.
+
 Keep rationale separate:
 
 - Put only requirements and constraints in **Requirements summary** and **User-facing behavior**.
@@ -90,7 +93,7 @@ Order work bottom-up with respect to genuine dependencies. For features spanning
 
 For each implementation step, name a path and symbol/region when evidence permits. State the minimal change and the requirement/scenario it satisfies. Do not include speculative refactoring.
 
-For each scenario, name an inspectable verification: deterministic test, exact manual check, or both. For a bounded behavior matrix, enumerate every case; do not claim coverage from a tool that can silently omit cases.
+For each scenario, name an inspectable verification: deterministic test, exact manual check, or both. For each material prohibition or invariant, include a direct negative assertion or other inspectable check where applicable. For a bounded behavior matrix, enumerate every case; do not claim coverage from a tool that can silently omit cases.
 
 ## 6. Required PLAN output
 

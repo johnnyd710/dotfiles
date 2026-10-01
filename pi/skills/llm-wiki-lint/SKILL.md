@@ -1,46 +1,41 @@
 ---
 name: llm-wiki-lint
-description: Audit compiled LLM-wiki concept notes for repetition, unnecessary structure, scope problems, and lost retrieval value. Report proposed edits without changing concept or raw note content.
+description: Lint and compress compiled LLM-wiki concept notes for repetition, unnecessary structure, scope problems, and lost retrieval value.
 ---
 
 # LLM Wiki Lint
 
-Audit existing compiled concept notes for information density and scope. This skill is diagnostic: report findings and proposed edits without changing concept or raw note content. Follow the wiki's audit-log rule by recording a concise lint event in root `log.md` for a requested lint, unless the user explicitly asks for a report only. Never apply proposed note edits without a separate user request.
+A direct user request to lint a concept note authorizes **editing the compiled note** to remove repetition, filler, and unnecessary structure while preserving useful meaning. This is not a source-preserving rewrite: never edit raw source bodies.
 
 ## Procedure
 
-1. Read the wiki `AGENTS.md` and `index.md`; identify the note's purpose, neighboring concepts, and current status.
-2. Read the complete concept note. Consult linked raw sources or primary documentation when needed to judge whether a detail is redundant or carries a meaningful qualification.
-3. Check each paragraph, bullet, heading, table, code sample, and callout:
-   - Does it add a distinct fact, decision, constraint, caveat, useful example, or relationship?
-   - Is the claim already stated elsewhere in the note or a better-linked concept?
-   - Does a heading reveal a separate concept that should be split, or is it a necessary facet of one retrieval topic?
-   - Does an example or code sample make behavior, an API, or a reusable pattern clearer? Keep it when it does; do not call it verbose based only on length.
-   - Would a link to a related concept, raw source, or relevant official document make the note more useful? Suggest links only when they improve discovery or evidence.
-4. Preserve information that affects meaning: attribution, decision status, uncertainty, scope, time, exceptions, security boundaries, and source provenance. Do not recommend removing it merely to shorten the note.
-5. Treat length as a review signal, not a verdict. Do not enforce word or line limits; code examples and tables can make useful notes long.
+1. Read the wiki `AGENTS.md` and `index.md`; identify the note's purpose, neighboring concepts, provenance, and current status.
+2. Read the complete concept note. Consult linked raw sources or primary documentation when needed to distinguish repetition from a useful qualification.
+3. Review each paragraph, bullet, heading, table, code sample, and callout:
+   - Keep each distinct fact, decision, constraint, caveat, useful example, and relationship.
+   - Remove repeated claims, scene-setting, generic rationale, and conclusions that restate the note.
+   - Treat every substantive heading as a scope check. Split independently useful topics; keep inseparable facets together.
+   - Keep code/API examples and links when they clarify behavior, document a reusable pattern, or improve discovery. Do not shorten examples solely because of length.
+   - Preserve attribution, decision status, uncertainty, scope, time, exceptions, security boundaries, and provenance.
+4. Apply clear meaning-preserving compression edits. Do not infer domain decisions, delete unresolved alternatives, or remove facts whose relevance is uncertain. If an edit requires a material scope or product decision, leave that part unchanged and ask/report the specific decision.
+5. When a split is clear, create focused concept notes, preserve provenance, update links and `index.md`, and remove duplicated content from the original note. Do not create a new note for a single isolated fact.
+6. Record a concise `lint` or `refactor` event in root `log.md`. If the user explicitly asks for a report-only audit, make no content edits and record findings only when the wiki protocol requires it.
 
 ## Scope and safety
 
-- Apply compression review to compiled notes in `concepts/`.
-- Never shorten or rewrite source bodies in `raw/`; raw records preserve provenance.
-- Do not edit, reformat, split, merge, or delete concept or raw files during lint. The only default write is the concise audit event in root `log.md` required by the wiki protocol; omit it if the user explicitly asks for a report only.
-- Distinguish factual corrections from style/scope suggestions. Do not infer that content is unnecessary without checking its context and provenance.
-- A note needs a proposed split only when it contains independently useful topics, not merely because it has several headings.
+- Compression edits apply only to compiled notes in `concepts/`.
+- Never shorten or rewrite source bodies in `raw/`.
+- Treat length as a review signal, not a limit; do not enforce word or line counts.
+- Do not commit changes unless the user explicitly asks and repository instructions permit it.
 
 ## Report format
 
-Keep the report brief and actionable:
+Keep the response brief and actionable:
 
 ```markdown
-## Summary
-[Overall assessment; say if no changes are warranted.]
+## Changes
+- `concepts/<file>.md` — [main compression/scope change].
 
-## Findings
-- `concepts/<file>.md`, “<section>” — [issue]. **Action:** [keep | cut | merge | split | clarify]. Preserve [material facts/caveats/source details].
-
-## Content changes
-- None. Concept and raw notes were not changed; the audit event was recorded in root `log.md` per wiki protocol.
+## Preserved / deferred
+- [Useful examples, caveats, or unresolved decisions retained; any material question left open.]
 ```
-
-Report only findings with a concrete retrieval, accuracy, duplication, or scope benefit. Do not produce a rewrite of the note unless separately asked to edit it.

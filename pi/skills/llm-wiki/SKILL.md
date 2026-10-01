@@ -94,8 +94,8 @@ resource: https://...    # Canonical URI or local path
 
 ### 3. Lint
 - Periodically check vault health: verify mandatory `type` frontmatter, orphan notes, broken links, stale claims superseded by newer ADRs, or concept gaps. Record findings in root `log.md`.
-- For a concision/structure review of compiled concept notes, use the separate `llm-wiki-lint` skill. It reports recommendations and does not edit notes unless the user asks.
-- Scan for monolithic or compound notes: Flag files with 'and' in their slug/title or notes exceeding ~300 lines that cover multiple distinct architectural concepts. Propose refactoring/splitting them into atomic notes.
+- For a concision/structure request, use the separate `llm-wiki-lint` skill. A direct request to lint authorizes meaning-preserving edits to compiled concept notes; never edit raw source bodies. If the user asks for a report only, do not modify notes.
+- Scan for repetition, unnecessary structure, and compound scope. On explicit lint requests, apply clear meaning-preserving edits and split independently useful topics; update links and `index.md`. Do not infer domain decisions or remove qualifications to shorten a note. Treat length as a signal, not a limit.
 - **Linter Scope:** Check only OKF knowledge and source domains: `concepts/` and `raw/`. Exclude `skills/` (which use agent skill frontmatter) and `canvas/` (JSON Canvas) to avoid false positives.
 
 ---

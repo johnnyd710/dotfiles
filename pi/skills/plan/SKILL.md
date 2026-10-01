@@ -29,9 +29,11 @@ Do not infer a product decision from a convenient implementation.
 
 ### 2. Run an ignoramus pass
 
-After forming an initial understanding, switch to an independent-review role. Treat domain terms, transitions, and implied rules as unknown. Generate questions whose answers could change behavior, scope, permissions, persisted data, API shape, compatibility, or tests.
+After forming an initial understanding, delegate this pass to the `ignoramus` agent with the `subagent` tool when both are available. Give it the original request, relevant repository evidence, and applicable prompts below, but not your tentative answers or preferred design. Ask it to identify material questions and whether each can be answered from repository evidence or requires requester/domain expertise; do not ask it to resolve user-specific questions or plan implementation. If the tool or agent is unavailable, or delegation fails, perform the pass yourself.
 
-Use these as prompts, not a checklist to fill mechanically. Consider only cases relevant to the workflow; omit irrelevant ones rather than recording `N/A`.
+Review the returned questions rather than accepting them mechanically: verify repository-answerable questions against evidence, discard irrelevant or duplicate questions, and carry material unresolved questions into the classification below. Treat domain terms, transitions, and implied rules as unknown. Consider only questions whose answers could change behavior, scope, permissions, persisted data, API shape, compatibility, or tests.
+
+Apply these prompts selectively in the delegated review, or use them yourself when falling back; do not fill them mechanically. Consider only cases relevant to the workflow; omit irrelevant ones rather than recording `N/A`.
 
 - Who performs the action, with what preconditions and inputs?
 - What exact result do they receive or observe?
@@ -131,23 +133,3 @@ Use these sections in this order. Include **Dependencies** when they affect impl
 ## Out of scope
 - ...
 ```
-
-## 7. Final gate
-
-Before responding, verify:
-
-- Every claim about the repository has evidence.
-- Requirements are observable; rationale is not presented as a requirement.
-- Material unknowns are explicit and block implementation when unresolved.
-- The user-facing behavior covers normal and relevant boundary cases.
-- Dependencies that affect ordering are evidence-based and represented; implementation order respects them.
-- Each implementation step and check traces to a requirement or constraint.
-- Multi-layer features are planned as vertical slices where applicable, not layer-first batches.
-- The plan does not contain implementation changes, speculative work, or generic filler.
-
-## 8. Operating principles
-
-- **Ignorance:** ask the basic question that exposes the domain expert's tacit assumption.
-- **User manual first:** specify what the user does and sees before deciding code structure.
-- **Ambiguity is a defect:** resolve it, constrain it, or mark it open.
-- **Complete checks over opaque automation:** for a bounded set, inspect every required case.

@@ -2,19 +2,7 @@
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## 1. Think Before Coding
-
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-- Consult `~/Repos/llm-wiki` as the primary reference for compounding architecture, decisions, and knowledge notes.
-- Is there a SKILL I can use to help me?
-
-## 2. Simplicity First
+## 1. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -26,7 +14,7 @@ Before implementing:
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-## 3. Surgical Changes
+## 2. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -42,7 +30,7 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-## 4. Goal-Driven Execution
+## 3. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
 
@@ -51,16 +39,7 @@ Transform tasks into verifiable goals:
 - "Fix the bug" → "Write a test that reproduces it, then make it pass"
 - "Refactor X" → "Ensure tests pass before and after"
 
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
-
-## Safety & Git Constraints
+## 4. Safety & Git Constraints
 - **Never run an unscoped/global `find`** (e.g. `find / ...`, `find ~ ...`, or any `find` without a narrow, specific starting path). It scans the whole filesystem, is slow, and can hang/abort. Use `fffind`/`ffgrep` instead in a scoped directory.
 - Ignore hidden files (`.obsidian`, `.trash`, etc.) unless requested.
 - **Strictly local-only Git:** NEVER run `git push` or any command that affects remote repositories.

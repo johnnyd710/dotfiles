@@ -68,4 +68,4 @@ The following is intentionally not tracked or deployed:
 
 ## Notes
 
-Pi discovers skills from `pi/skills/` and `~/Repos/llm-wiki/skills/`, as configured in `pi/settings.json`. Clone this repository to `~/Repos/dotfiles` and clone `llm-wiki` at that path for both skill sources to be available.
+Pi discovers skills from `pi/skills/` as configured in `pi/settings.json`. Clone this repository to `~/Repos/dotfiles`.

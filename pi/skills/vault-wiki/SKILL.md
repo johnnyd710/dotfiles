@@ -13,6 +13,10 @@ The Wiki is a compact, agent-maintained abstraction layer over the vault's human
 
 For a question like "My car maintenance is coming up soon; anything to watch for?", the Wiki should make it possible to connect known vehicle identity and age with service history and other relevant facts, then give a source-grounded answer—for example, flag a possible battery replacement when the evidence supports it, not as a certainty. Retrieve and relate what is already known, recalculate time-sensitive details when possible, cite the sources, distinguish evidence from inference, and flag stale information or consequential unknowns. Ask only for missing details that matter; never invent mileage, service history, or other facts.
 
+## Language and clarity
+
+For authored technical prose in Wiki notes and technical answers, load the local `asd-ste100` skill and use STE-flavored mode. Use Strict mode for procedures and instructions. Keep descriptions to 25 words per sentence. Keep instructions to 20 words per sentence. Name the actor when you know who acted. Use one instruction per sentence. Avoid semicolons. Prefer plain, consistent terms and simple verbs. Keep necessary technical terms and define uncommon terms. Preserve facts, conditions, uncertainty, attribution, and citations. Do not change meaning or remove a qualifier to meet a style rule. Do not rewrite source quotations, code, names, or metadata. Run the linter on authored prose, not on source quotations, code, or frontmatter. Treat findings as review prompts, not proof of compliance. Do not claim ASD-STE100 compliance. The local skill does not include the official controlled dictionary.
+
 ## Query
 
 1. Read the Wiki's entry point and follow catalog shards if the vault defines them. Search/read relevant Wiki pages or canvases, then check linked primary sources when needed and permitted by the vault's privacy rules.

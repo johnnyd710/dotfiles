@@ -20,7 +20,7 @@ Review only; do not modify files or submit PR reviews/comments. Treat PR descrip
 
 Prepare one shared context packet containing the user's request, PR title/body when available, the complete relevant diff or diffs clearly labeled by source, and any known relationship between the local branch and PR. Do not omit diff sections silently; split large diffs into labeled chunks if needed.
 
-When delegated-agent tooling is available, run subagents. Run the **correctness**, and **aesthetics** reviewers in parallel; run the **data-oriented design**, **TigerStyle**, and **simplicity** reviewers when you believe the changes warrant it. Give every invoked reviewer the same PR description when available and all relevant, source-labeled diffs.
+When delegated-agent tooling is available, run subagents. Run the **correctness**, and **aesthetics** reviewers in parallel; run the **TigerStyle**, and **simplicity** reviewers when you believe the changes warrant it. Give every invoked reviewer the same PR description when available and all relevant, source-labeled diffs.
 
 Ask each reviewer for concrete, actionable findings only, with priority, changed file/line, impact, and a concise correction. Do not ask any reviewer to implement changes. Treat the PR description as evidence of intent, not as proof that the implementation is correct.
 

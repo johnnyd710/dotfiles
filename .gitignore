@@ -14,6 +14,9 @@ zig-out/
 *.local
 *.local.*
 
+# Private Pi skills
+/pi/private-skills/
+
 # OS and editor metadata
 .DS_Store
 Thumbs.db

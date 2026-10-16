@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.0.4",
+  "lastChangelogVersion": "1.2.0",
   "defaultProvider": "github-copilot",
   "defaultModel": "gpt-6-luna",
   "defaultThinkingLevel": "xhigh",
@@ -8,7 +8,8 @@
     "npm:@ff-labs/pi-fff"
   ],
   "skills": [
-    "~/Repos/dotfiles/pi/skills"
+    "~/Repos/dotfiles/pi/skills",
+    "~/Repos/dotfiles/pi/private-skills"
   ],
   "collapseChangelog": false,
   "theme": "dark"

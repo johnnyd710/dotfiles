@@ -1,6 +1,6 @@
 ---
 name: vault-wiki
-description: Work with an Obsidian vault's agent-managed Wiki by following its local instructions; ingest sources, answer with citations, compound durable knowledge, and lint pages or canvases.
+description: Manage an Obsidian vault's agent-managed Wiki by following its local instructions; ingest sources, answer with citations, compound durable knowledge, and lint pages or canvases.
 ---
 
 # Vault Wiki
@@ -19,7 +19,7 @@ For authored technical prose in Wiki notes and technical answers, load the local
 
 ## Query
 
-1. Read the Wiki's entry point and follow catalog shards if the vault defines them. Search/read relevant Wiki pages or canvases, then check linked primary sources when needed and permitted by the vault's privacy rules.
+1. Read the Wiki's entry point and follow its catalog structure. Search/read relevant Wiki pages or canvases, then check linked primary sources when needed and permitted by the vault's privacy rules.
 2. Build the answer by connecting relevant stored context and source material. Use links in the vault's preferred format; distinguish sourced fact, attributed statement, inference, and open question, and note missing or stale evidence.
 3. A useful durable comparison, connection, or analysis may become a separate typed page when appropriate. Don't file a one-off answer merely for volume, and respect requests for read-only answers.
 
@@ -29,7 +29,12 @@ For authored technical prose in Wiki notes and technical answers, load the local
 2. Check the catalog and related Wiki pages. Extract useful facts, decisions, constraints, caveats, examples, relationships, preferences, open questions, and proposals that will improve future recall or answers—not material merely for volume. Keep established or attributed facts distinct from drafts, plans, conjectures, and queries; preserve attribution and disagreement.
 3. Create or update focused pages only in the agent-owned location specified by the vault. Follow its page scope, naming, frontmatter, type, heading, size, and linking rules; do not assume a schema or character limit. Use the vault's own type vocabulary, and link related pages only where useful.
 4. Update the catalog and activity log if the vault defines them. Keep entries concise and preserve existing history. If the Wiki or its navigation files do not exist, follow the vault's setup instructions rather than inventing a structure.
-5. Verify claims only with relevant sources and tools allowed by the vault. Prefer local sources when available. Follow the vault's privacy rules for external tools, minimize remote query data, and never upload source text unless explicitly authorized. Ask if the privacy policy is unclear.
+5. Verify claims only with relevant sources and tools allowed by the vault. Prefer local sources when available. Follow the vault's privacy rules for external tools, minimize remote query data, and never upload source text unless explicitly authorized. Ask if the privacy policy is unclear. If a needed source is unavailable, cite its link and state that you could not check it.
+6. Copy raw source material into the vault only when the user explicitly authorizes that copy.
+
+## Finish a change
+
+After any Wiki change, run the vault's checker and resolve its errors before finishing. Do not stage, commit, or initialize Git in the vault. Report the changed paths, source or attribution caveats, the checker result, and any unresolved blocker.
 
 ## Canvases
 
@@ -37,4 +42,6 @@ Follow the vault's canvas location and ownership rules. Use the `json-canvas` sk
 
 ## Lint
 
-Run the checker specified by the vault, if any. This skill's bundled `scripts/check-wiki.mjs` enforces a specific flat OKF v0.2 profile (including its frontmatter, heading, and character-limit rules); use it only when the vault's instructions call for that profile. Also inspect catalog coverage, stale links, orphans, contradictory or superseded claims, missing citations, and pages that conflate facts with proposals. Fix only agent-owned Wiki content when requested; report issues in human-owned sources without editing them.
+Run the checker specified by the vault, if any. This skill's bundled `scripts/check-wiki.mjs` enforces a specific flat OKF v0.2 profile. Use it only when the target vault's instructions call for that profile. The target vault's `AGENTS.md` remains authoritative. Also inspect catalog coverage, stale links, orphans, contradictory or superseded claims, missing citations, and pages that conflate facts with proposals. Fix only agent-owned Wiki content when requested; report issues in human-owned sources without editing them.
+
+The bundled checker currently allows 5,000 Unicode characters in ordinary Markdown bodies, excludes YAML frontmatter, and exempts root `index.md` and `log.md` from size checks.

@@ -24,15 +24,23 @@ for (const entry of readdirSync(wiki, { withFileTypes: true })) {
     errors.push(`${name}: only Markdown and Canvas files belong in Wiki`);
     continue;
   }
-  const count = Array.from(text).length; // Unicode code points, not UTF-16 units
-  if (count > 4000) errors.push(`${name}: ${count} characters (maximum 4000)`);
+  if (/^(?:index|log)-.+\.md$/.test(name)) {
+    errors.push(`${name}: index/log shards are not allowed; use index.md or log.md`);
+  }
   if (/^#{1,6}(?:[ \t]|$)/m.test(text)) errors.push(`${name}: Markdown headings are not allowed`);
-  const frontmatter = text.match(/^---\n([\s\S]*?)\n---\n/)?.[1];
+  const frontmatterMatch = text.match(/^---\n([\s\S]*?)\n---\n/);
+  const frontmatter = frontmatterMatch?.[1];
   if (frontmatter === undefined) {
     errors.push(`${name}: missing YAML frontmatter`);
     continue;
   }
-  const fields = /^(?:index|log)(?:-.+)?\.md$/.test(name)
+  const isIndexOrLog = name === "index.md" || name === "log.md";
+  if (!isIndexOrLog) {
+    const body = text.slice(frontmatterMatch[0].length);
+    const count = Array.from(body).length; // Unicode code points, not UTF-16 units
+    if (count > 5000) errors.push(`${name}: ${count} body characters (maximum 5000, excluding frontmatter)`);
+  }
+  const fields = isIndexOrLog
     ? ["okf_version"]
     : ["type", "title", "description", "generated", "tags", "resource"];
   for (const field of fields) {
@@ -46,5 +54,5 @@ if (errors.length) {
   console.error(errors.join("\n"));
   process.exitCode = 1;
 } else {
-  console.log("Wiki OK: flat Markdown/Canvas; Markdown frontmatter, no headings, <=4000 characters");
+  console.log("Wiki OK: flat Markdown/Canvas; frontmatter and headings valid; ordinary Markdown bodies <=5000 characters; index/log exempt");
 }

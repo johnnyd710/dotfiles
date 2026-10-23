@@ -21,6 +21,7 @@ Use `gh` for GitHub reads. Check `gh <command> --help` when command syntax is un
 - Check PR checks with `gh pr checks REF --repo OWNER/REPO --json name,state,bucket,link,workflow`. A `fail` bucket indicates a failed check; not every check is necessarily a GitHub Actions run.
 - For Actions failures, get the PR's `headRefOid`, find matching runs with `gh run list --repo OWNER/REPO --commit SHA --json databaseId,name,status,conclusion,headSha,url`, then inspect failed-step logs with `gh run view RUN_ID --repo OWNER/REPO --log-failed`.
 - Identify the failing job/step and relevant error or test assertion in the logs before explaining the likely cause. Use the check link for non-Actions checks or logs unavailable through `gh`.
+- If logs reference an uploaded report or artifact (for example, a Playwright error context), download it with `gh run download RUN_ID --repo OWNER/REPO --name ARTIFACT --dir DIRECTORY` and inspect the relevant file.
 
 ## Cloning and boundaries
 

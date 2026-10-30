@@ -1,48 +1,17 @@
 # Global AGENTS
-
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
-
-## 1. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code (YAGNI).
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 2. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 3. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-## 4. Safety & Git Constraints
-- **Never run an unscoped/global `find`** (e.g. `find / ...`, `find ~ ...`, or any `find` without a narrow, specific starting path). It scans the whole filesystem, is slow, and can hang/abort. Use `fffind`/`ffgrep` instead in a scoped directory.
-- Ignore hidden files (`.obsidian`, `.trash`, etc.) unless requested.
-- **Strictly local-only Git:** NEVER run `git push` or any command that affects remote repositories.
-- Only run `git` commands that inspect the local repository, such as `git diff`, `git status`, or `git log`. Only run `git add` or `git commit` if given permission to do so.
-- Never leave comments that reference details from chats but make very little sense in the context of reading it in the codebase.
+- To search, always use `fffind`/`ffgrep` in a scoped directory.
+- Only run `git` commands that inspect the local repository, such as `git diff`, `git status`, or `git log`. Only run `git add` or `git commit` if given permission to do so. NEVER run `git push` or any command that affects remote repositories.
+- Never leave inline comments or comments that reference details from chats.
+- Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+- Fail-first and fail-fast: surface errors immediately rather than swallowing them, adding fallbacks, or working around them silently.
+- Follow the spirit of NASA's Power of Ten Rules for Safety-Critical Code by Gerard J. Holzmann.
+- Put a limit on everything because everything has a limit.
+- Assert arguments, returns, and invariants: what you expect and don't expect, the positive and negative space, not only contract but breach.
+- Fuzz testing is your best friend.
+- Design logical interfaces: push control flow up and data flow down, minimize surface area.
+- Think about performance from the outset (network, storage, memory, compute). It's hard to fix a system after implementation, and the gains are less.
+- Naming: append qualifiers to names, sort by most significant word (big endian naming), don't abbreviate.
+- Write tests before implementing changes to ensure correctness and prevent regressions. If fixing a bug, write a test that reproduces it first, then make it pass.
+- Correctness above all.
+- Use engineering diagramming tools like mermaid diagrams (process or sequence diagrams, state or flow charts, etc.) to help the user understand complex flows or relationships in the code.
 

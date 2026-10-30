@@ -8,7 +8,8 @@
   ],
   "hideThinkingBlock": false,
   "packages": [
-    "npm:@ff-labs/pi-fff"
+    "npm:@ff-labs/pi-fff",
+    "npm:@pi-archimedes/session-name"
   ],
   "skills": [
     "~/Repos/dotfiles/pi/skills",

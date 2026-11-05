@@ -2,3 +2,4 @@
 shell-integration = fish
 font-family = "Google Sans Code"
 font-size = 14
+copy-on-select = true

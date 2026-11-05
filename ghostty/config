@@ -1,5 +1,6 @@
 # macOS Ghostty preferences
-shell-integration = fish
 font-family = "Google Sans Code"
 font-size = 14
-copy-on-select = true
+theme = light:GitHub Light Default,dark:GitHub Dark Default
+copy-on-select = clipboard
+window-save-state = always

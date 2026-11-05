@@ -2,7 +2,7 @@
   "workbench.colorTheme": "GitHub Dark",
   "editor.minimap.enabled": false,
   "editor.formatOnPaste": true,
-  "editor.fontFamily": "RobotoMono Nerd Font, Source Code Pro",
+  "editor.fontFamily": "Google Sans Code",
   "cSpell.userWords": [
     "cospace",
     "ecschema",

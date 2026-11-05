@@ -1,5 +1,5 @@
 [core]
-	editor = vscode --wait
+	editor = code --wait
 	autocrlf = false
 [user]
 	email = 19596966+johnnyd710@users.noreply.github.com
@@ -8,7 +8,28 @@
 	ui = auto
 [diff]
 	tool = vscode
+	algorithm = histogram
 [difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
+	cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
+[merge]
+	tool = vscode
+	conflictStyle = zdiff3
+[mergetool "vscode"]
+	cmd = code --wait --merge \"$REMOTE\" \"$LOCAL\" \"$BASE\" \"$MERGED\"
 [init]
-	defaultBranch = master
+	defaultBranch = main
+[pull]
+	rebase = merges
+[rerere]
+	enabled = true
+[fetch]
+	prune = true
+[push]
+	autoSetupRemote = true
+[rebase]
+	autoStash = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

@@ -1,0 +1,12 @@
+bierner.markdown-mermaid
+christian-kohler.path-intellisense
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+euskadi31.json-pretty-printer
+fabiospampinato.vscode-open-in-github
+github.github-vscode-theme
+github.vscode-pull-request-github
+marp-team.marp-vscode
+mechatroner.rainbow-csv
+mike-co.import-sorter
+streetsidesoftware.code-spell-checker

@@ -13,6 +13,14 @@ if [ -f "${DOTFILES_DIR}/git/.gitconfig" ]; then
     ln -sf "${DOTFILES_DIR}/git/.gitconfig" "${HOME}/.gitconfig"
 fi
 
+# Git reads this global ignore file by default, so no core.excludesFile is needed
+if [ -f "${DOTFILES_DIR}/git/ignore" ]; then
+    GIT_IGNORE_FILE="${XDG_CONFIG_HOME:-${HOME}/.config}/git/ignore"
+    mkdir -p "$(dirname "${GIT_IGNORE_FILE}")"
+    echo "Linking ${GIT_IGNORE_FILE}"
+    ln -sf "${DOTFILES_DIR}/git/ignore" "${GIT_IGNORE_FILE}"
+fi
+
 # Setup Pi configuration
 PI_AGENT_DIR="${HOME}/.pi/agent"
 mkdir -p "${PI_AGENT_DIR}"
@@ -20,6 +28,7 @@ mkdir -p "${PI_AGENT_DIR}"
 echo "Linking Pi agent configuration files..."
 ln -sf "${DOTFILES_DIR}/pi/settings.json" "${PI_AGENT_DIR}/settings.json"
 ln -sf "${DOTFILES_DIR}/pi/models.json" "${PI_AGENT_DIR}/models.json"
+ln -sf "${DOTFILES_DIR}/pi/mcp.json" "${PI_AGENT_DIR}/mcp.json"
 ln -sf "${DOTFILES_DIR}/pi/AGENTS.md" "${PI_AGENT_DIR}/AGENTS.md"
 
 # Link extensions directory (remove existing if directory or symlink)
@@ -43,6 +52,15 @@ if [ -n "${VSCODE_USER_DIR}" ] && [ -f "${DOTFILES_DIR}/vscode/settings.json" ];
     mkdir -p "${VSCODE_USER_DIR}"
     echo "Linking VS Code settings.json..."
     ln -sf "${DOTFILES_DIR}/vscode/settings.json" "${VSCODE_USER_DIR}/settings.json"
+fi
+
+if command -v code >/dev/null; then
+    echo "Installing VS Code extensions..."
+    while IFS= read -r extension; do
+        [ -n "${extension}" ] && code --install-extension "${extension}"
+    done < "${DOTFILES_DIR}/vscode/extensions.txt"
+else
+    echo "VS Code CLI 'code' not found; skipping VS Code extensions"
 fi
 
 if [ "${OS}" = "Darwin" ]; then

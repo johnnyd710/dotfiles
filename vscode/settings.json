@@ -19,15 +19,12 @@
   "diffEditor.codeLens": true,
   "editor.tabSize": 2,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
-  "typescript.preferences.quoteStyle": "double",
-  "workbench.iconTheme": "vscode-icons",
+  "js/ts.preferences.quoteStyle": "double",
   "files.associations": {
     "*.txt": "markdown"
   },
-  "editor.fontSize": 16,
-  "javascript.updateImportsOnFileMove.enabled": "always",
+  "js/ts.updateImportsOnFileMove.enabled": "always",
   "importSorter.importStringConfiguration.quoteMark": "double",
-  "typescript.updateImportsOnFileMove.enabled": "always",
   "explorer.confirmDelete": false,
   "files.eol": "\n",
   "workbench.startupEditor": "none",
@@ -36,9 +33,6 @@
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "stylelint.vscode-stylelint"
   },
   "npm.packageManager": "pnpm",
   "editor.inlineSuggest.enabled": true,
@@ -51,15 +45,16 @@
     "json": false
   },
   "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.formatOnSaveMode": "modifications",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.autoClosingBrackets": "languageDefined",
   "workbench.sideBar.location": "right",
   "editor.lineHeight": 1.5,
   "diffEditor.ignoreTrimWhitespace": false,
-  "prettier.configPath": ".prettierrc",
   "extensions.ignoreRecommendations": true,
   "githubIssues.assignWhenWorking": false,
   "githubIssues.ignoreUserCompletionTrigger": [
@@ -70,5 +65,8 @@
     "markdown"
   ],
   "githubIssues.userCompletions.enabled": false,
-  "git.confirmSync": false,
+  "git.confirmSync": true,
+  "editor.fontSize": 16,
+  "githubIssues.createIssueTriggers": [],
+  "githubPullRequests.commentExpandState": "collapseAll"
 }

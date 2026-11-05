@@ -38,6 +38,8 @@ winget install -e --id Microsoft.VisualStudioCode
 winget install --id Microsoft.WindowsTerminal.Preview
 
 Install-HardLink (Join-Path $dotfilesDir "git\.gitconfig") (Join-Path $env:USERPROFILE ".gitconfig")
+$gitConfigHome = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { Join-Path $env:USERPROFILE ".config" }
+Install-HardLink (Join-Path $dotfilesDir "git\ignore") (Join-Path $gitConfigHome "git\ignore")
 Install-HardLink (Join-Path $dotfilesDir "gh\config.yml") (Join-Path $env:APPDATA "GitHub CLI\config.yml")
 $powerShellProfile = Join-Path ([Environment]::GetFolderPath("MyDocuments")) "PowerShell\Microsoft.PowerShell_profile.ps1"
 Install-HardLink (Join-Path $dotfilesDir "powershell\Microsoft.PowerShell_profile.ps1") $powerShellProfile
@@ -47,19 +49,12 @@ Install-HardLink (Join-Path $dotfilesDir "windows-terminal\settings.json") (Join
 $piAgentDir = Join-Path $env:USERPROFILE ".pi\agent"
 Install-HardLink (Join-Path $dotfilesDir "pi\settings.json") (Join-Path $piAgentDir "settings.json")
 Install-HardLink (Join-Path $dotfilesDir "pi\models.json") (Join-Path $piAgentDir "models.json")
+Install-HardLink (Join-Path $dotfilesDir "pi\mcp.json") (Join-Path $piAgentDir "mcp.json")
 Install-HardLink (Join-Path $dotfilesDir "pi\AGENTS.md") (Join-Path $piAgentDir "AGENTS.md")
 Install-Junction (Join-Path $dotfilesDir "pi\extensions") (Join-Path $piAgentDir "extensions")
 New-Item -ItemType Directory -Force -Path (Join-Path $piAgentDir "skills") | Out-Null
 
-$extensions = @(
-    "wayou.vscode-todo-highlight",
-    "streetsidesoftware.code-spell-checker",
-    "mike-co.import-sorter",
-    "mechatroner.rainbow-csv",
-    "GitHub.copilot",
-    "euskadi31.json-pretty-printer",
-    "christian-kohler.path-intellisense"
-)
+$extensions = Get-Content (Join-Path $dotfilesDir "vscode\extensions.txt") | Where-Object { $_ }
 foreach ($extension in $extensions) {
     code --install-extension $extension
 }

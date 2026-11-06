@@ -92,7 +92,7 @@ if [ "${OS}" = "Darwin" ]; then
     ln -sf "${DOTFILES_DIR}/fish/fish_plugins" "${FISH_CONFIG_DIR}/fish_plugins"
     ln -sf "${DOTFILES_DIR}/ghostty/config" "${GHOSTTY_CONFIG_DIR}/config"
 
-    fish -c 'fisher install (cat ~/.config/fish/fish_plugins)'
+    fish -c 'fisher update'
 elif [ "${OS}" = "Linux" ]; then
     if ! command -v apt-get >/dev/null; then
         echo "GitHub CLI and Syncthing installation are supported on Debian/Ubuntu systems with apt." >&2
@@ -103,6 +103,7 @@ elif [ "${OS}" = "Linux" ]; then
     command -v gh >/dev/null || packages+=(gh)
     command -v syncthing >/dev/null || packages+=(syncthing)
     command -v zig >/dev/null || packages+=(zig)
+    command -v zoxide >/dev/null || packages+=(zoxide)
     command -v flatpak >/dev/null || packages+=(flatpak)
     if [ ${#packages[@]} -gt 0 ]; then
         sudo apt-get update
@@ -111,6 +112,18 @@ elif [ "${OS}" = "Linux" ]; then
 
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install --user --noninteractive flathub md.obsidian.Obsidian com.bitwarden.desktop
+fi
+
+# Initialize zoxide for Bash and Zsh
+if [ "${OS}" = "Linux" ]; then
+    for shell in bash zsh; do
+        shell_config="${HOME}/.${shell}rc"
+        initialization="eval \"\$(zoxide init ${shell})\""
+        touch "${shell_config}"
+        if ! grep -Fxq "${initialization}" "${shell_config}"; then
+            printf '\n%s\n' "${initialization}" >> "${shell_config}"
+        fi
+    done
 fi
 
 GH_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/gh"

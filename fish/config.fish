@@ -1,7 +1,3 @@
-if status is-interactive
-  # interactive-only config
-end
-
 set -gx PNPM_HOME "$HOME/Library/pnpm"
 
 set -l _path_no_pnpm
@@ -38,3 +34,7 @@ fish_add_path "/opt/homebrew/bin"
 
 # Added by LM Studio CLI tool (lms)
 set -gx PATH $PATH "$HOME/.lmstudio/bin"
+
+if status is-interactive
+    zoxide init fish | source
+end

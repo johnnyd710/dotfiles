@@ -7,6 +7,12 @@ OS="$(uname)"
 
 echo "==> Setting up dotfiles from ${DOTFILES_DIR}..."
 
+# Install Pi
+if ! command -v pi >/dev/null 2>&1; then
+    echo "Installing Pi..."
+    curl -fsSL https://pi.dev/install.sh | sh
+fi
+
 # Setup Git config
 if [ -f "${DOTFILES_DIR}/git/.gitconfig" ]; then
     echo "Linking ~/.gitconfig"
@@ -39,6 +45,12 @@ ln -sfn "${DOTFILES_DIR}/pi/extensions" "${PI_AGENT_DIR}/extensions"
 
 # Ensure skills directory exists if Pi looks there
 mkdir -p "${PI_AGENT_DIR}/skills"
+
+# Setup Rex configuration
+REX_CONFIG_FILE="${REX_CONFIG:-${XDG_CONFIG_HOME:-${HOME}/.config}/rex/init.lua}"
+mkdir -p "$(dirname "${REX_CONFIG_FILE}")"
+echo "Linking Rex configuration..."
+ln -sf "${DOTFILES_DIR}/rex/init.lua" "${REX_CONFIG_FILE}"
 
 # Setup VS Code settings if VS Code config directory exists
 VSCODE_USER_DIR=""

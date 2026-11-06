@@ -1,12 +1,12 @@
 $ErrorActionPreference = "Stop"
 
 $dotfilesDir = $PSScriptRoot
-$backupDir = Join-Path $env:USERPROFILE ".dotfiles-backup\$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+$backupDir = Join-Path $env:USERPROFILE ".dotfiles-backup\$(Get-Date -Format 'yyyyMMdd-HHmmss-fffffff')"
 
 function Move-Existing([string]$destination) {
     if (Test-Path -LiteralPath $destination) {
-        New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
-        $backupPath = Join-Path $backupDir ([System.IO.Path]::GetFileName($destination))
+        $backupPath = Join-Path $backupDir ($destination -replace ':', '')
+        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $backupPath) | Out-Null
         Move-Item -LiteralPath $destination -Destination $backupPath
         Write-Host "Backed up $destination to $backupPath"
     }
@@ -37,10 +37,22 @@ winget install --id Microsoft.PowerShell.Preview
 winget install -e --id Microsoft.VisualStudioCode
 winget install --id Microsoft.WindowsTerminal.Preview
 
+# Install Pi
+if (-not (Get-Command pi -ErrorAction SilentlyContinue)) {
+    Write-Host "Installing Pi..."
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -Command {
+        $ErrorActionPreference = "Stop"
+        Invoke-RestMethod https://pi.dev/install.ps1 | Invoke-Expression
+    }
+    if ($LASTEXITCODE -ne 0) { throw "Pi installation failed." }
+}
+
 Install-HardLink (Join-Path $dotfilesDir "git\.gitconfig") (Join-Path $env:USERPROFILE ".gitconfig")
 $gitConfigHome = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { Join-Path $env:USERPROFILE ".config" }
 Install-HardLink (Join-Path $dotfilesDir "git\ignore") (Join-Path $gitConfigHome "git\ignore")
 Install-HardLink (Join-Path $dotfilesDir "gh\config.yml") (Join-Path $env:APPDATA "GitHub CLI\config.yml")
+$rexConfigFile = if ($env:REX_CONFIG) { $env:REX_CONFIG } else { Join-Path $env:APPDATA "rex\init.lua" }
+Install-HardLink (Join-Path $dotfilesDir "rex\init.lua") $rexConfigFile
 $powerShellProfile = Join-Path ([Environment]::GetFolderPath("MyDocuments")) "PowerShell\Microsoft.PowerShell_profile.ps1"
 Install-HardLink (Join-Path $dotfilesDir "powershell\Microsoft.PowerShell_profile.ps1") $powerShellProfile
 Install-HardLink (Join-Path $dotfilesDir "vscode\settings.json") (Join-Path $env:APPDATA "Code\User\settings.json")

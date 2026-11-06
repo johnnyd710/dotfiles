@@ -13,12 +13,20 @@ function Move-Existing([string]$destination) {
 }
 
 function Install-HardLink([string]$source, [string]$destination) {
+    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+        Write-Warning "Skipping missing source file: $source"
+        return
+    }
     New-Item -ItemType Directory -Force -Path (Split-Path -Parent $destination) | Out-Null
     Move-Existing $destination
     New-Item -ItemType HardLink -Path $destination -Target $source | Out-Null
 }
 
 function Install-Junction([string]$source, [string]$destination) {
+    if (-not (Test-Path -LiteralPath $source -PathType Container)) {
+        Write-Warning "Skipping missing source directory: $source"
+        return
+    }
     New-Item -ItemType Directory -Force -Path (Split-Path -Parent $destination) | Out-Null
     Move-Existing $destination
     cmd.exe /c "mklink /J `"$destination`" `"$source`"" | Out-Null
@@ -67,9 +75,14 @@ Install-HardLink (Join-Path $dotfilesDir "pi\AGENTS.md") (Join-Path $piAgentDir 
 Install-Junction (Join-Path $dotfilesDir "pi\extensions") (Join-Path $piAgentDir "extensions")
 New-Item -ItemType Directory -Force -Path (Join-Path $piAgentDir "skills") | Out-Null
 
-$extensions = Get-Content (Join-Path $dotfilesDir "vscode\extensions.txt") | Where-Object { $_ }
-foreach ($extension in $extensions) {
-    code --install-extension $extension
+$extensionsFile = Join-Path $dotfilesDir "vscode\extensions.txt"
+if (Test-Path -LiteralPath $extensionsFile -PathType Leaf) {
+    $extensions = Get-Content -LiteralPath $extensionsFile | Where-Object { $_ }
+    foreach ($extension in $extensions) {
+        code --install-extension $extension
+    }
+} else {
+    Write-Warning "Skipping missing extensions file: $extensionsFile"
 }
 
 gh auth status *> $null

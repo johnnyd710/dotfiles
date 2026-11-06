@@ -1,1 +1,0 @@
-/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/examples/extensions/subagent/agents.ts
